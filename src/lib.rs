@@ -1,4 +1,4 @@
-#![feature(unsafe_destructor, libc, io_ext)]
+#![feature(unsafe_destructor, io_ext)]
 extern crate libc;
 
 mod redirect;
