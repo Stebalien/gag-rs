@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `gag` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, gag">
+
+    <title>gag - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'gag', ty: 'mod', relpath: '../'};</script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>gag</a><wbr></span><span class='out-of-band'><a href='stability.html'>[stability]</a> <span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-0' href='../src/gag/lib.rs.html#1-70'>[src]</a></span></h1>
+<div class='docblock'><p>Temporarily redirect stdout/stderr.</p>
+
+<p>For example, one can temporarily throw away stdout output:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>gag</span>::<span class='ident'>Gag</span>;
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Hello world!&quot;</span>);
+{
+    <span class='kw'>let</span> <span class='ident'>print_gag</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stdout</span>().<span class='ident'>unwrap</span>();
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;No one will see this!&quot;</span>);
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Or this!&quot;</span>);
+}
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;But they will see this!&quot;</span>);
+</pre>
+
+<p>You can also temporarily un-gag by dropping the gag:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>gag</span>::<span class='ident'>Gag</span>;
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>print_gag</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stdout</span>().<span class='ident'>unwrap</span>();
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;No one will see this!&quot;</span>);
+<span class='kw'>if</span> <span class='boolval'>true</span> {
+    <span class='ident'>drop</span>(<span class='ident'>print_gag</span>);
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;They will see this...&quot;</span>);
+    <span class='ident'>print_gag</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stdout</span>().<span class='ident'>unwrap</span>();
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Not this...&quot;</span>);
+}
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Nor this.&quot;</span>);
+</pre>
+
+<p>If you don&#39;t want to throw away stdout, you can write it to a file:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>io</span>)]</span>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fs</span>::<span class='ident'>OpenOptions</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='ident'>Read</span>, <span class='ident'>Write</span>, <span class='ident'>Seek</span>, <span class='ident'>SeekFrom</span>};
+<span class='kw'>use</span> <span class='ident'>gag</span>::<span class='ident'>Redirect</span>;
+
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Displayed&quot;</span>);
+
+<span class='comment'>// Open a log</span>
+<span class='kw'>let</span> <span class='ident'>log</span> <span class='op'>=</span> <span class='ident'>OpenOptions</span>::<span class='ident'>new</span>()
+    .<span class='ident'>truncate</span>(<span class='boolval'>true</span>)
+    .<span class='ident'>read</span>(<span class='boolval'>true</span>)
+    .<span class='ident'>create</span>(<span class='boolval'>true</span>)
+    .<span class='ident'>write</span>(<span class='boolval'>true</span>)
+    .<span class='ident'>open</span>(<span class='string'>&quot;/tmp/my_log.log&quot;</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='kw'>let</span> <span class='ident'>print_redirect</span> <span class='op'>=</span> <span class='ident'>Redirect</span>::<span class='ident'>stdout</span>(<span class='ident'>log</span>).<span class='ident'>unwrap</span>();
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Hidden&quot;</span>);
+
+<span class='comment'>// Extract redirect</span>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>log</span> <span class='op'>=</span> <span class='ident'>print_redirect</span>.<span class='ident'>into_inner</span>();
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Displayed&quot;</span>);
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>buf</span> <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>new</span>();
+<span class='ident'>log</span>.<span class='ident'>seek</span>(<span class='ident'>SeekFrom</span>::<span class='ident'>Start</span>(<span class='number'>0</span>)).<span class='ident'>unwrap</span>();
+<span class='ident'>log</span>.<span class='ident'>read_to_string</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>buf</span>).<span class='ident'>unwrap</span>();
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='ident'>buf</span>[..], <span class='string'>&quot;Hidden\n&quot;</span>);
+</pre>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Gag.html'
+                               title='gag::Gag'>Gag</a></td>
+                        <td class='docblock short'><p>Discard output until dropped.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Redirect.html'
+                               title='gag::Redirect'>Redirect</a></td>
+                        <td class='docblock short'><p>Redirect stderr/stdout to a file.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "gag";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Gag","Discard output until dropped."],["Redirect","Redirect stderr/stdout to a file."]]});
