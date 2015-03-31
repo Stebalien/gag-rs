@@ -60,11 +60,29 @@
 //! assert_eq!(&buf[..], "Hidden\n");
 //!
 //! ```
+//!
+//! Alternatively, you can buffer stdout in-memory (requires linux 3.11 or later):
+//!
+//! ```
+//! use std::io::Read;
+//! use gag::BufferRedirect;
+//!
+//! let mut buf = BufferRedirect::stdout().unwrap();
+//! println!("Hello world!");
+//!
+//! let mut output = String::new();
+//! buf.read_to_string(&mut output).unwrap();
+//!
+//! assert_eq!(&output[..], "Hello world!\n");
+//! ```
 #![feature(unsafe_destructor, io_ext)]
 extern crate libc;
 
 mod redirect;
 mod gag;
+mod tempfile;
+mod buffer;
 
 pub use gag::Gag;
 pub use redirect::Redirect;
+pub use buffer::{Buffer, BufferRedirect};
