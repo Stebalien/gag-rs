@@ -127,6 +127,8 @@
 <span id="85">85</span>
 <span id="86">86</span>
 <span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Temporarily redirect stdout/stderr.</span>
 <span class='doccomment'>//!</span>
@@ -207,14 +209,16 @@
 <span class='doccomment'>//! ```</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>unsafe_destructor</span>, <span class='ident'>io_ext</span>)]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tempdir</span>;
 
 <span class='kw'>mod</span> <span class='ident'>redirect</span>;
 <span class='kw'>mod</span> <span class='ident'>gag</span>;
-<span class='kw'>mod</span> <span class='ident'>os</span>;
+<span class='kw'>mod</span> <span class='ident'>buffer</span>;
+<span class='kw'>mod</span> <span class='ident'>tempfile</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>gag</span>::<span class='ident'>Gag</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>redirect</span>::<span class='ident'>Redirect</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>os</span>::<span class='op'>*</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>buffer</span>::{<span class='ident'>BufferRedirect</span>, <span class='ident'>Buffer</span>};
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
