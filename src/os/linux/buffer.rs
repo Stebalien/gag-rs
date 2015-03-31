@@ -3,7 +3,7 @@ use std::os::unix::io::Fd;
 use std::fs::File;
 
 use super::tempfile::tempfile;
-use super::redirect::Redirect;
+use ::redirect::Redirect;
 
 /// Buffer output in an in-memory buffer.
 pub struct BufferRedirect {
@@ -22,7 +22,7 @@ impl Read for Buffer {
     }
 }
 
-fn tempfile_pair() -> io::Result<(Fd, File)> {
+pub fn tempfile_pair() -> io::Result<(Fd, File)> {
     let fd = try!(tempfile());
     // Ugly dirty hack. I need an independent file descriptor so I can read/write from two
     // different points in the file.

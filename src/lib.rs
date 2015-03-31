@@ -80,9 +80,8 @@ extern crate libc;
 
 mod redirect;
 mod gag;
-mod tempfile;
-mod buffer;
+mod os;
 
 pub use gag::Gag;
 pub use redirect::Redirect;
-pub use buffer::{Buffer, BufferRedirect};
+pub use os::*;

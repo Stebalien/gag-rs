@@ -1,5 +1,5 @@
-use libc;
-use std;
+use ::libc;
+use ::std;
 
 use std::os::unix::io::{Fd, AsRawFd};
 use std::io;

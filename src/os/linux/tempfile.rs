@@ -1,4 +1,4 @@
-use super::libc::{self, c_int, O_EXCL, O_RDWR};
+use ::libc::{self, c_int, O_EXCL, O_RDWR};
 use std::io;
 use std::os::unix::io::Fd;
 
