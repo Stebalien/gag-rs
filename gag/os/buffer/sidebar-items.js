@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Buffer","An in-memory read-only buffer into which BufferRedirect buffers output."],["BufferRedirect","Buffer output in an in-memory buffer."]]});

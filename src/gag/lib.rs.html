@@ -127,7 +127,6 @@
 <span id="85">85</span>
 <span id="86">86</span>
 <span id="87">87</span>
-<span id="88">88</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Temporarily redirect stdout/stderr.</span>
 <span class='doccomment'>//!</span>
@@ -211,12 +210,11 @@
 
 <span class='kw'>mod</span> <span class='ident'>redirect</span>;
 <span class='kw'>mod</span> <span class='ident'>gag</span>;
-<span class='kw'>mod</span> <span class='ident'>tempfile</span>;
-<span class='kw'>mod</span> <span class='ident'>buffer</span>;
+<span class='kw'>mod</span> <span class='ident'>os</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>gag</span>::<span class='ident'>Gag</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>redirect</span>::<span class='ident'>Redirect</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>buffer</span>::{<span class='ident'>Buffer</span>, <span class='ident'>BufferRedirect</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>os</span>::<span class='op'>*</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
