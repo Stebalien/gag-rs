@@ -2,8 +2,7 @@ use libc;
 use std;
 
 use std::os::unix::io::{Fd, AsRawFd};
-use std::io::{self, Write, Read};
-use std::ops::{Deref, DerefMut};
+use std::io;
 
 /// Private helper trait because AsRawFd is not implemented on &mut T.
 trait MyRawFd {
@@ -22,6 +21,11 @@ impl<'a, T: AsRawFd> MyRawFd for &'a mut T {
     }
 }
 
+impl MyRawFd for Fd {
+    fn my_raw_fd(&self) -> Fd {
+        *self
+    }
+}
 
 /// Redirect stderr/stdout to a file.
 pub struct Redirect<F> {
@@ -38,7 +42,7 @@ impl<F> Redirect<F> {
     }
 }
 
-impl<F> Redirect<F> where F: MyRawFd + Write {
+impl<F> Redirect<F> where F: MyRawFd {
     fn make(std_fd: Fd, file: F) -> io::Result<Self> {
         let file_fd = file.my_raw_fd();
         // BEGIN: Don't panic
@@ -87,40 +91,3 @@ impl<F> Drop for Redirect<F> {
         }
     }
 }
-
-// Forward Write/Read impls.
-impl<F> Write for Redirect<F> where F: Write {
-    #[inline(always)]
-    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
-        self.file.write(buf)
-    }
-    #[inline(always)]
-    fn flush(&mut self) -> io::Result<()> {
-        self.file.flush()
-    }
-}
-
-impl<F> Read for Redirect<F> where F: Read {
-    #[inline(always)]
-    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
-        self.file.read(buf)
-    }
-}
-
-// Deref to inner file.
-
-impl<F> Deref for Redirect<F> {
-    type Target = F;
-    #[inline(always)]
-    fn deref(&self) -> &F {
-        &self.file
-    }
-}
-
-impl<F> DerefMut for Redirect<F> {
-    #[inline(always)]
-    fn deref_mut(&mut self) -> &mut F {
-        &mut self.file
-    }
-}
-
