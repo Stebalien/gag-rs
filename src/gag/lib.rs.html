@@ -110,6 +110,24 @@
 <span id="68">68</span>
 <span id="69">69</span>
 <span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Temporarily redirect stdout/stderr.</span>
 <span class='doccomment'>//!</span>
@@ -173,14 +191,32 @@
 <span class='doccomment'>//! assert_eq!(&amp;buf[..], &quot;Hidden\n&quot;);</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! ```</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! Alternatively, you can buffer stdout in-memory (requires linux 3.11 or later):</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! ```</span>
+<span class='doccomment'>//! use std::io::Read;</span>
+<span class='doccomment'>//! use gag::BufferRedirect;</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! let mut buf = BufferRedirect::stdout().unwrap();</span>
+<span class='doccomment'>//! println!(&quot;Hello world!&quot;);</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! let mut output = String::new();</span>
+<span class='doccomment'>//! buf.read_to_string(&amp;mut output).unwrap();</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! assert_eq!(&amp;output[..], &quot;Hello world!\n&quot;);</span>
+<span class='doccomment'>//! ```</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>unsafe_destructor</span>, <span class='ident'>io_ext</span>)]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>libc</span>;
 
 <span class='kw'>mod</span> <span class='ident'>redirect</span>;
 <span class='kw'>mod</span> <span class='ident'>gag</span>;
+<span class='kw'>mod</span> <span class='ident'>tempfile</span>;
+<span class='kw'>mod</span> <span class='ident'>buffer</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>gag</span>::<span class='ident'>Gag</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>redirect</span>::<span class='ident'>Redirect</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>buffer</span>::{<span class='ident'>Buffer</span>, <span class='ident'>BufferRedirect</span>};
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
