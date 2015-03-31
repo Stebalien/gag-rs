@@ -45,9 +45,8 @@ pub fn tempfile_pair() -> io::Result<(TempFile, File)> {
     static DEV_SHM: [i8; 9] = [b'/' as i8, b'd' as i8, b'e' as i8, b'v' as i8, b'/' as i8, b's' as i8, b'h' as i8, b'm' as i8, 0i8];
 
     let fd = match unsafe { libc::open(&DEV_SHM as *const i8, O_EXCL | O_TMPFILE | O_RDWR, 0o600) } {
-        -1 => return Err(io::Error::last_os_error()),
         // Always fall back to the generic version.
-        22 => return generic_tempfile_pair(),
+        -1 => return generic_tempfile_pair(),
         n => n as Fd,
     };
     // Ugly dirty hack. I need an independent file descriptor so I can read/write from two
