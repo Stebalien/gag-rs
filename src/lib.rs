@@ -77,11 +77,13 @@
 //! ```
 #![feature(unsafe_destructor, io_ext)]
 extern crate libc;
+extern crate tempdir;
 
 mod redirect;
 mod gag;
-mod os;
+mod buffer;
+mod tempfile;
 
 pub use gag::Gag;
 pub use redirect::Redirect;
-pub use os::*;
+pub use buffer::{BufferRedirect, Buffer};

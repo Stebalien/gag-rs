@@ -1,14 +1,13 @@
 use std::io::{self, Read};
-use std::os::unix::io::Fd;
 use std::fs::File;
 
-use super::tempfile::tempfile;
-use ::redirect::Redirect;
+use tempfile::{tempfile_pair, TempFile};
+use redirect::Redirect;
 
 /// Buffer output in an in-memory buffer.
 pub struct BufferRedirect {
     #[allow(dead_code)]
-    redir: Redirect<Fd>,
+    redir: Redirect<TempFile>,
     outer: File,
 }
 
@@ -20,14 +19,6 @@ impl Read for Buffer {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         self.0.read(buf)
     }
-}
-
-pub fn tempfile_pair() -> io::Result<(Fd, File)> {
-    let fd = try!(tempfile());
-    // Ugly dirty hack. I need an independent file descriptor so I can read/write from two
-    // different points in the file.
-    let outer = try!(File::open(format!("/proc/self/fd/{}", fd)));
-    Ok((fd, outer))
 }
 
 impl BufferRedirect {
