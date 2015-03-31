@@ -3,6 +3,10 @@ Redirect and/or gag stdout/stderr.
 Documentation (with examples): https://stebalien.github.io/gag-rs/gag/
 
 TODO:
-* Windows support.
-* Better error handling?
-* Add a helper for redirecting to an in-buffer memory.
+
+General:
+ * Windows support.
+ * Better error handling?
+Buffer:
+ * Deallocate the buffer as it is read (FALLOC_FL_PUNCH_HOLE) if possible.
+ * Support other platforms.
