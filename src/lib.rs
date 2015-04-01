@@ -76,6 +76,18 @@
 //!
 //! assert_eq!(&output[..], "Hello world!\n");
 //! ```
+//!
+//! Finally, if you just want to temporarily hold std output, you can use `Hold` to hold the output
+//! until dropped:
+//!
+//! ```
+//! use gag::Hold;
+//!
+//! let hold = Hold::stdout().unwrap();
+//! println!("first");
+//! println!("second");
+//! drop(hold); // printing happens here!
+//! ```
 #![feature(unsafe_destructor, io_ext)]
 extern crate libc;
 extern crate tempdir;
@@ -84,7 +96,9 @@ mod redirect;
 mod gag;
 mod buffer;
 mod tempfile;
+mod hold;
 
 pub use gag::Gag;
 pub use redirect::Redirect;
 pub use buffer::{BufferRedirect, Buffer};
+pub use hold::Hold;
