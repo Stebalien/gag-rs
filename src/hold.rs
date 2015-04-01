@@ -29,26 +29,29 @@ impl Hold {
 
 impl Drop for Hold {
     fn drop(&mut self) {
-        fn read_into<R: Read, W: Write>(mut from: R, mut to: W) -> io::Result<()> {
+        fn read_into<R: Read, W: Write>(mut from: R, mut to: W) {
             // TODO: use sendfile?
             let mut buf = [0u8; 4096];
             loop {
+                // Ignore errors
                 match from.read(&mut buf) {
-                    Ok(0) => return Ok(()),
-                    Ok(size) => try!(to.write_all(&buf[..size])),
-                    Err(e) => return Err(e),
+                    Ok(0) => break,
+                    Ok(size) => if let Err(_) = to.write_all(&buf[..size]) { break },
+                    Err(_) => break,
                 }
             }
+            // Just in case...
+            let _ = to.flush();
         }
 
         let from = self.buf_redir.take().unwrap().into_inner();
         // Ignore errors.
         if self.is_stdout {
             let stdout = io::stdout();
-            let _ = read_into(from, stdout.lock());
+            read_into(from, stdout.lock());
         } else {
             let stderr = io::stderr();
-            let _ = read_into(from, stderr.lock());
+            read_into(from, stderr.lock());
         }
     }
 }
