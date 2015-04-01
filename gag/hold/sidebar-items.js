@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Hold","Hold output until dropped. On drop, the held output is sent to the stdout/stderr."]]});

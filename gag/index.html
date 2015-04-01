@@ -43,7 +43,7 @@
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>gag</a><wbr></span><span class='out-of-band'><a href='stability.html'>[stability]</a> <span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-0' href='../src/gag/lib.rs.html#1-89'>[src]</a></span></h1>
+        </span><a id='src-0' href='../src/gag/lib.rs.html#1-104'>[src]</a></span></h1>
 <div class='docblock'><p>Temporarily redirect stdout/stderr.</p>
 
 <p>For example, one can temporarily throw away stdout output:</p>
@@ -103,7 +103,8 @@
 <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='ident'>buf</span>[..], <span class='string'>&quot;Hidden\n&quot;</span>);
 </pre>
 
-<p>Alternatively, you can buffer stdout in-memory (requires linux 3.11 or later):</p>
+<p>Alternatively, you can buffer stdout to a temporary file. On linux 3.11+, this file is
+guarenteed to be stored in-memory.</p>
 <pre id='rust-example-rendered' class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>Read</span>;
 <span class='kw'>use</span> <span class='ident'>gag</span>::<span class='ident'>BufferRedirect</span>;
@@ -115,6 +116,17 @@
 <span class='ident'>buf</span>.<span class='ident'>read_to_string</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>output</span>).<span class='ident'>unwrap</span>();
 
 <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='kw-2'>&amp;</span><span class='ident'>output</span>[..], <span class='string'>&quot;Hello world!\n&quot;</span>);
+</pre>
+
+<p>Finally, if you just want to temporarily hold std output, you can use <code>Hold</code> to hold the output
+until dropped:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>gag</span>::<span class='ident'>Hold</span>;
+
+<span class='kw'>let</span> <span class='ident'>hold</span> <span class='op'>=</span> <span class='ident'>Hold</span>::<span class='ident'>stdout</span>().<span class='ident'>unwrap</span>();
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;first&quot;</span>);
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;second&quot;</span>);
+<span class='ident'>drop</span>(<span class='ident'>hold</span>); <span class='comment'>// printing happens here!</span>
 </pre>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
@@ -136,6 +148,13 @@
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Gag.html'
                                title='gag::Gag'>Gag</a></td>
                         <td class='docblock short'><p>Discard output until dropped.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Hold.html'
+                               title='gag::Hold'>Hold</a></td>
+                        <td class='docblock short'><p>Hold output until dropped. On drop, the held output is sent to the stdout/stderr.</p>
 </td>
                     </tr>
                 
