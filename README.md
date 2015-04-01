@@ -9,4 +9,3 @@ General:
  * Better error handling?
 Buffer:
  * Deallocate the buffer as it is read (FALLOC_FL_PUNCH_HOLE) if possible.
- * Support other platforms.
