@@ -61,7 +61,8 @@
 //!
 //! ```
 //!
-//! Alternatively, you can buffer stdout in-memory (requires linux 3.11 or later):
+//! Alternatively, you can buffer stdout to a temporary file. On linux 3.11+, this file is
+//! guarenteed to be stored in-memory.
 //!
 //! ```
 //! use std::io::Read;
