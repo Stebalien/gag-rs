@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/steb/.cargo/registry/src/github.com-1ecc6299db9ec823/libc-0.1.4/rust/src/liblibc/lib.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/steb/.cargo/registry/src/github.com-1ecc6299db9ec823/libc-0.1.5/rust/src/liblibc/lib.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>lib.rs.html -- source</title>
@@ -6263,6 +6263,36 @@
 <span id="6221">6221</span>
 <span id="6222">6222</span>
 <span id="6223">6223</span>
+<span id="6224">6224</span>
+<span id="6225">6225</span>
+<span id="6226">6226</span>
+<span id="6227">6227</span>
+<span id="6228">6228</span>
+<span id="6229">6229</span>
+<span id="6230">6230</span>
+<span id="6231">6231</span>
+<span id="6232">6232</span>
+<span id="6233">6233</span>
+<span id="6234">6234</span>
+<span id="6235">6235</span>
+<span id="6236">6236</span>
+<span id="6237">6237</span>
+<span id="6238">6238</span>
+<span id="6239">6239</span>
+<span id="6240">6240</span>
+<span id="6241">6241</span>
+<span id="6242">6242</span>
+<span id="6243">6243</span>
+<span id="6244">6244</span>
+<span id="6245">6245</span>
+<span id="6246">6246</span>
+<span id="6247">6247</span>
+<span id="6248">6248</span>
+<span id="6249">6249</span>
+<span id="6250">6250</span>
+<span id="6251">6251</span>
+<span id="6252">6252</span>
+<span id="6253">6253</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2012-2015 The Rust Project Developers. See the COPYRIGHT</span>
 <span class='comment'>// file at the top-level directory of this distribution and at</span>
@@ -6493,7 +6523,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>rlim_t</span> <span class='op'>=</span> <span class='ident'>u64</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>gl_pathc</span>: <span class='ident'>size_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>gl_pathv</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_char</span>,
                     <span class='kw'>pub</span> <span class='ident'>gl_offs</span>:  <span class='ident'>size_t</span>,
@@ -6506,23 +6536,23 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_usec</span>: <span class='ident'>suseconds_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_nsec</span>: <span class='ident'>c_long</span>,
                 }
 
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
+                <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
 
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>sighandler_t</span> <span class='op'>=</span> <span class='ident'>size_t</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rlimit</span> {
                     <span class='kw'>pub</span> <span class='ident'>rlim_cur</span>: <span class='ident'>rlim_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>rlim_max</span>: <span class='ident'>rlim_t</span>,
@@ -6535,7 +6565,7 @@
                 <span class='comment'>// This is also specified in POSIX 2001, but only has two fields. All implementors</span>
                 <span class='comment'>// implement BSD 4.3 version.</span>
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rusage</span> {
                     <span class='kw'>pub</span> <span class='ident'>ru_utime</span>: <span class='ident'>timeval</span>,
                     <span class='kw'>pub</span> <span class='ident'>ru_stime</span>: <span class='ident'>timeval</span>,
@@ -6565,7 +6595,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_port_t</span> <span class='op'>=</span> <span class='ident'>u16</span>;
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_addr_t</span> <span class='op'>=</span> <span class='ident'>u32</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
                     <span class='kw'>pub</span> <span class='ident'>sa_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_data</span>: [<span class='ident'>u8</span>; <span class='number'>14</span>],
                 }
@@ -6578,19 +6608,22 @@
                     <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_pointer_width</span> <span class='op'>=</span> <span class='string'>&quot;64&quot;</span>)]</span>
                     <span class='kw'>pub</span> <span class='ident'>__ss_pad2</span>: [<span class='ident'>u8</span>; <span class='number'>128</span> <span class='op'>-</span> <span class='number'>2</span> <span class='op'>*</span> <span class='number'>8</span>],
                 }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>sockaddr_storage</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>sockaddr_storage</span> { <span class='op'>*</span><span class='self'>self</span> }
+                }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_port</span>: <span class='ident'>in_port_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_addr</span>: <span class='ident'>in_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_zero</span>: [<span class='ident'>u8</span>; <span class='number'>8</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s_addr</span>: <span class='ident'>in_addr_t</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin6_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_port</span>: <span class='ident'>in_port_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_flowinfo</span>: <span class='ident'>u32</span>,
@@ -6598,21 +6631,21 @@
                     <span class='kw'>pub</span> <span class='ident'>sin6_scope_id</span>: <span class='ident'>u32</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s6_addr</span>: [<span class='ident'>u16</span>; <span class='number'>8</span>]
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>imr_multiaddr</span>: <span class='ident'>in_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>imr_interface</span>: <span class='ident'>in_addr</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_multiaddr</span>: <span class='ident'>in6_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_interface</span>: <span class='ident'>c_uint</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
                     <span class='kw'>pub</span> <span class='ident'>ai_flags</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_family</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_socktype</span>: <span class='ident'>c_int</span>,
@@ -6638,9 +6671,12 @@
                     <span class='kw'>pub</span> <span class='ident'>sun_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sun_path</span>: [<span class='ident'>c_char</span>; <span class='number'>108</span>]
                 }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>sockaddr_un</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>sockaddr_un</span> { <span class='op'>*</span><span class='self'>self</span> }
+                }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
                     <span class='kw'>pub</span> <span class='ident'>ifa_next</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ifaddrs</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_name</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_char</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_flags</span>: <span class='ident'>c_uint</span>,
@@ -6731,7 +6767,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>blkcnt_t</span> <span class='op'>=</span> <span class='ident'>i32</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>dev_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>__pad1</span>: <span class='ident'>c_short</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_ino</span>: <span class='ident'>ino_t</span>,
@@ -6755,13 +6791,13 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>__size</span>: [<span class='ident'>u32</span>; <span class='number'>9</span>]
                 }
             }
@@ -6776,7 +6812,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>blkcnt_t</span> <span class='op'>=</span> <span class='ident'>u32</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>c_ulonglong</span>,
                     <span class='kw'>pub</span> <span class='ident'>__pad0</span>: [<span class='ident'>c_uchar</span>; <span class='number'>4</span>],
                     <span class='kw'>pub</span> <span class='ident'>__st_ino</span>: <span class='ident'>ino_t</span>,
@@ -6799,13 +6835,13 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>__size</span>: [<span class='ident'>u32</span>; <span class='number'>9</span>]
                 }
             }
@@ -6822,7 +6858,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>blkcnt_t</span> <span class='op'>=</span> <span class='ident'>i32</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>c_ulong</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_pad1</span>: [<span class='ident'>c_long</span>; <span class='number'>3</span>],
                     <span class='kw'>pub</span> <span class='ident'>st_ino</span>: <span class='ident'>ino_t</span>,
@@ -6846,13 +6882,13 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>__size</span>: [<span class='ident'>u32</span>; <span class='number'>9</span>]
                 }
             }
@@ -6861,7 +6897,7 @@
             <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>extra</span> {
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>arch</span>::<span class='ident'>c95</span>::{<span class='ident'>c_ushort</span>, <span class='ident'>c_int</span>, <span class='ident'>c_uchar</span>};
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_ll</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_ll</span> {
                     <span class='kw'>pub</span> <span class='ident'>sll_family</span>: <span class='ident'>c_ushort</span>,
                     <span class='kw'>pub</span> <span class='ident'>sll_protocol</span>: <span class='ident'>c_ushort</span>,
                     <span class='kw'>pub</span> <span class='ident'>sll_ifindex</span>: <span class='ident'>c_int</span>,
@@ -6933,7 +6969,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>blkcnt_t</span> <span class='op'>=</span> <span class='ident'>i64</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>dev_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_ino</span>: <span class='ident'>ino_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_nlink</span>: <span class='ident'>nlink_t</span>,
@@ -6955,13 +6991,13 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>__size</span>: [<span class='ident'>u64</span>; <span class='number'>7</span>]
                 }
             }
@@ -6977,7 +7013,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>blkcnt_t</span> <span class='op'>=</span> <span class='ident'>i64</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>dev_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_ino</span>: <span class='ident'>ino_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_mode</span>: <span class='ident'>mode_t</span>,
@@ -7000,13 +7036,13 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>pthread_attr_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>__size</span>: [<span class='ident'>u64</span>; <span class='number'>8</span>]
                 }
             }
@@ -7016,7 +7052,7 @@
             }
             <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>extra</span> {
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>arch</span>::<span class='ident'>c95</span>::{<span class='ident'>c_ushort</span>, <span class='ident'>c_int</span>, <span class='ident'>c_uchar</span>};
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_ll</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_ll</span> {
                     <span class='kw'>pub</span> <span class='ident'>sll_family</span>: <span class='ident'>c_ushort</span>,
                     <span class='kw'>pub</span> <span class='ident'>sll_protocol</span>: <span class='ident'>c_ushort</span>,
                     <span class='kw'>pub</span> <span class='ident'>sll_ifindex</span>: <span class='ident'>c_int</span>,
@@ -7043,7 +7079,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>rlim_t</span> <span class='op'>=</span> <span class='ident'>i64</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>gl_pathc</span>:  <span class='ident'>size_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>__unused1</span>: <span class='ident'>size_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>gl_offs</span>:   <span class='ident'>size_t</span>,
@@ -7060,23 +7096,23 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_usec</span>: <span class='ident'>suseconds_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_nsec</span>: <span class='ident'>c_long</span>,
                 }
 
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
+                <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
 
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>sighandler_t</span> <span class='op'>=</span> <span class='ident'>size_t</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rlimit</span> {
                     <span class='kw'>pub</span> <span class='ident'>rlim_cur</span>: <span class='ident'>rlim_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>rlim_max</span>: <span class='ident'>rlim_t</span>,
@@ -7087,7 +7123,7 @@
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>common</span>::<span class='ident'>posix01</span>::<span class='ident'>timeval</span>;
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>arch</span>::<span class='ident'>c95</span>::<span class='ident'>c_long</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rusage</span> {
                     <span class='kw'>pub</span> <span class='ident'>ru_utime</span>: <span class='ident'>timeval</span>,
                     <span class='kw'>pub</span> <span class='ident'>ru_stime</span>: <span class='ident'>timeval</span>,
@@ -7117,13 +7153,13 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_port_t</span> <span class='op'>=</span> <span class='ident'>u16</span>;
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_addr_t</span> <span class='op'>=</span> <span class='ident'>u32</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
                     <span class='kw'>pub</span> <span class='ident'>sa_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_data</span>: [<span class='ident'>u8</span>; <span class='number'>14</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_storage</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_storage</span> {
                     <span class='kw'>pub</span> <span class='ident'>ss_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>ss_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>__ss_pad1</span>: [<span class='ident'>u8</span>; <span class='number'>6</span>],
@@ -7131,7 +7167,7 @@
                     <span class='kw'>pub</span> <span class='ident'>__ss_pad2</span>: [<span class='ident'>u8</span>; <span class='number'>112</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_port</span>: <span class='ident'>in_port_t</span>,
@@ -7139,11 +7175,11 @@
                     <span class='kw'>pub</span> <span class='ident'>sin_zero</span>: [<span class='ident'>u8</span>; <span class='number'>8</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s_addr</span>: <span class='ident'>in_addr_t</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin6_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_port</span>: <span class='ident'>in_port_t</span>,
@@ -7152,21 +7188,21 @@
                     <span class='kw'>pub</span> <span class='ident'>sin6_scope_id</span>: <span class='ident'>u32</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s6_addr</span>: [<span class='ident'>u16</span>; <span class='number'>8</span>]
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>imr_multiaddr</span>: <span class='ident'>in_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>imr_interface</span>: <span class='ident'>in_addr</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_multiaddr</span>: <span class='ident'>in6_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_interface</span>: <span class='ident'>c_uint</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
                     <span class='kw'>pub</span> <span class='ident'>ai_flags</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_family</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_socktype</span>: <span class='ident'>c_int</span>,
@@ -7177,13 +7213,13 @@
                     <span class='kw'>pub</span> <span class='ident'>ai_next</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>addrinfo</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_un</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_un</span> {
                     <span class='kw'>pub</span> <span class='ident'>sun_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sun_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sun_path</span>: [<span class='ident'>c_char</span>; <span class='number'>104</span>]
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
                     <span class='kw'>pub</span> <span class='ident'>ifa_next</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ifaddrs</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_name</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_char</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_flags</span>: <span class='ident'>c_uint</span>,
@@ -7250,7 +7286,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>blkcnt_t</span> <span class='op'>=</span> <span class='ident'>i64</span>;
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>fflags_t</span> <span class='op'>=</span> <span class='ident'>u32</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>dev_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_ino</span>: <span class='ident'>ino_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_mode</span>: <span class='ident'>mode_t</span>,
@@ -7276,7 +7312,7 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
@@ -7305,7 +7341,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>rlim_t</span> <span class='op'>=</span> <span class='ident'>i64</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>gl_pathc</span>:  <span class='ident'>size_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>__unused1</span>: <span class='ident'>size_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>gl_offs</span>:   <span class='ident'>size_t</span>,
@@ -7322,23 +7358,23 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_usec</span>: <span class='ident'>suseconds_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_nsec</span>: <span class='ident'>c_long</span>,
                 }
 
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
+                <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
 
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>sighandler_t</span> <span class='op'>=</span> <span class='ident'>size_t</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rlimit</span> {
                     <span class='kw'>pub</span> <span class='ident'>rlim_cur</span>: <span class='ident'>rlim_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>rlim_max</span>: <span class='ident'>rlim_t</span>,
@@ -7349,7 +7385,7 @@
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>common</span>::<span class='ident'>posix01</span>::<span class='ident'>timeval</span>;
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>arch</span>::<span class='ident'>c95</span>::<span class='ident'>c_long</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rusage</span> {
                     <span class='kw'>pub</span> <span class='ident'>ru_utime</span>: <span class='ident'>timeval</span>,
                     <span class='kw'>pub</span> <span class='ident'>ru_stime</span>: <span class='ident'>timeval</span>,
@@ -7379,13 +7415,13 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_port_t</span> <span class='op'>=</span> <span class='ident'>u16</span>;
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_addr_t</span> <span class='op'>=</span> <span class='ident'>u32</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
                     <span class='kw'>pub</span> <span class='ident'>sa_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_data</span>: [<span class='ident'>u8</span>; <span class='number'>14</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_storage</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_storage</span> {
                     <span class='kw'>pub</span> <span class='ident'>ss_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>ss_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>__ss_pad1</span>: [<span class='ident'>u8</span>; <span class='number'>6</span>],
@@ -7393,7 +7429,7 @@
                     <span class='kw'>pub</span> <span class='ident'>__ss_pad2</span>: [<span class='ident'>u8</span>; <span class='number'>112</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_port</span>: <span class='ident'>in_port_t</span>,
@@ -7401,11 +7437,11 @@
                     <span class='kw'>pub</span> <span class='ident'>sin_zero</span>: [<span class='ident'>u8</span>; <span class='number'>8</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s_addr</span>: <span class='ident'>in_addr_t</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin6_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_port</span>: <span class='ident'>in_port_t</span>,
@@ -7414,21 +7450,21 @@
                     <span class='kw'>pub</span> <span class='ident'>sin6_scope_id</span>: <span class='ident'>u32</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s6_addr</span>: [<span class='ident'>u16</span>; <span class='number'>8</span>]
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>imr_multiaddr</span>: <span class='ident'>in_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>imr_interface</span>: <span class='ident'>in_addr</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_multiaddr</span>: <span class='ident'>in6_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_interface</span>: <span class='ident'>c_uint</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
                     <span class='kw'>pub</span> <span class='ident'>ai_flags</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_family</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_socktype</span>: <span class='ident'>c_int</span>,
@@ -7439,13 +7475,13 @@
                     <span class='kw'>pub</span> <span class='ident'>ai_next</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>addrinfo</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_un</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_un</span> {
                     <span class='kw'>pub</span> <span class='ident'>sun_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sun_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sun_path</span>: [<span class='ident'>c_char</span>; <span class='number'>104</span>]
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
                     <span class='kw'>pub</span> <span class='ident'>ifa_next</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ifaddrs</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_name</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_char</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_flags</span>: <span class='ident'>c_uint</span>,
@@ -7512,7 +7548,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>fflags_t</span> <span class='op'>=</span> <span class='ident'>u32</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_ino</span>: <span class='ident'>ino_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_nlink</span>: <span class='ident'>nlink_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>dev_t</span>,
@@ -7537,7 +7573,7 @@
                     <span class='kw'>pub</span> <span class='ident'>st_qspare2</span>: <span class='ident'>int64_t</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
@@ -7567,7 +7603,7 @@
 
                 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;bitrig&quot;</span>)]</span>
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>gl_pathc</span>:  <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>gl_matchc</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>gl_offs</span>:   <span class='ident'>c_int</span>,
@@ -7584,7 +7620,7 @@
 
                 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>target_os</span> <span class='op'>=</span> <span class='string'>&quot;openbsd&quot;</span>)]</span>
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>gl_pathc</span>:  <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>__unused1</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>gl_offs</span>:   <span class='ident'>c_int</span>,
@@ -7602,23 +7638,23 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_usec</span>: <span class='ident'>suseconds_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_nsec</span>: <span class='ident'>c_long</span>,
                 }
 
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
+                <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
 
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>sighandler_t</span> <span class='op'>=</span> <span class='ident'>size_t</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rlimit</span> {
                     <span class='kw'>pub</span> <span class='ident'>rlim_cur</span>: <span class='ident'>rlim_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>rlim_max</span>: <span class='ident'>rlim_t</span>,
@@ -7629,7 +7665,7 @@
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>common</span>::<span class='ident'>posix01</span>::<span class='ident'>timeval</span>;
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>arch</span>::<span class='ident'>c95</span>::<span class='ident'>c_long</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rusage</span> {
                     <span class='kw'>pub</span> <span class='ident'>ru_utime</span>: <span class='ident'>timeval</span>,
                     <span class='kw'>pub</span> <span class='ident'>ru_stime</span>: <span class='ident'>timeval</span>,
@@ -7659,13 +7695,13 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_port_t</span> <span class='op'>=</span> <span class='ident'>u16</span>;
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_addr_t</span> <span class='op'>=</span> <span class='ident'>u32</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
                     <span class='kw'>pub</span> <span class='ident'>sa_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_data</span>: [<span class='ident'>u8</span>; <span class='number'>14</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_storage</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_storage</span> {
                     <span class='kw'>pub</span> <span class='ident'>ss_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>ss_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>__ss_pad1</span>: [<span class='ident'>u8</span>; <span class='number'>6</span>],
@@ -7673,7 +7709,7 @@
                     <span class='kw'>pub</span> <span class='ident'>__ss_pad3</span>: [<span class='ident'>u8</span>; <span class='number'>240</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_port</span>: <span class='ident'>in_port_t</span>,
@@ -7681,11 +7717,11 @@
                     <span class='kw'>pub</span> <span class='ident'>sin_zero</span>: [<span class='ident'>u8</span>; <span class='number'>8</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s_addr</span>: <span class='ident'>in_addr_t</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin6_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_port</span>: <span class='ident'>in_port_t</span>,
@@ -7694,21 +7730,21 @@
                     <span class='kw'>pub</span> <span class='ident'>sin6_scope_id</span>: <span class='ident'>u32</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s6_addr</span>: [<span class='ident'>u16</span>; <span class='number'>8</span>]
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>imr_multiaddr</span>: <span class='ident'>in_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>imr_interface</span>: <span class='ident'>in_addr</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_multiaddr</span>: <span class='ident'>in6_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_interface</span>: <span class='ident'>c_uint</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
                     <span class='kw'>pub</span> <span class='ident'>ai_flags</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_family</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_socktype</span>: <span class='ident'>c_int</span>,
@@ -7719,13 +7755,13 @@
                     <span class='kw'>pub</span> <span class='ident'>ai_next</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>addrinfo</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_un</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_un</span> {
                     <span class='kw'>pub</span> <span class='ident'>sun_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sun_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sun_path</span>: [<span class='ident'>c_char</span>; <span class='number'>104</span>]
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
                     <span class='kw'>pub</span> <span class='ident'>ifa_next</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ifaddrs</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_name</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_char</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_flags</span>: <span class='ident'>c_uint</span>,
@@ -7792,7 +7828,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>fflags_t</span> <span class='op'>=</span> <span class='ident'>u32</span>; <span class='comment'>// type not declared, but struct stat have u_int32_t</span>
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_mode</span>: <span class='ident'>mode_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>dev_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_ino</span>: <span class='ident'>ino_t</span>,
@@ -7815,7 +7851,7 @@
                     <span class='kw'>pub</span> <span class='ident'>st_birthtime_nsec</span>: <span class='ident'>c_long</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
@@ -7842,7 +7878,7 @@
                 <span class='comment'>// pub Note: this is the struct called stat64 in Windows. Not stat,</span>
                 <span class='comment'>// nor stati64.</span>
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>dev_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_ino</span>: <span class='ident'>ino_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_mode</span>: <span class='ident'>u16</span>,
@@ -7858,24 +7894,24 @@
 
                 <span class='comment'>// note that this is called utimbuf64 in Windows</span>
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time64_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time64_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>c_long</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_usec</span>: <span class='ident'>c_long</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_nsec</span>: <span class='ident'>c_long</span>,
                 }
 
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
+                <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
             }
 
             <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>bsd44</span> {
@@ -7888,7 +7924,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_port_t</span> <span class='op'>=</span> <span class='ident'>u16</span>;
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_addr_t</span> <span class='op'>=</span> <span class='ident'>u32</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
                     <span class='kw'>pub</span> <span class='ident'>sa_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_data</span>: [<span class='ident'>u8</span>; <span class='number'>14</span>],
                 }
@@ -7899,19 +7935,22 @@
                     <span class='kw'>pub</span> <span class='ident'>__ss_align</span>: <span class='ident'>i64</span>,
                     <span class='kw'>pub</span> <span class='ident'>__ss_pad2</span>: [<span class='ident'>u8</span>; <span class='number'>112</span>],
                 }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>sockaddr_storage</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>sockaddr_storage</span> { <span class='op'>*</span><span class='self'>self</span> }
+                }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_port</span>: <span class='ident'>in_port_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_addr</span>: <span class='ident'>in_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_zero</span>: [<span class='ident'>u8</span>; <span class='number'>8</span>],
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s_addr</span>: <span class='ident'>in_addr_t</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin6_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_port</span>: <span class='ident'>in_port_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_flowinfo</span>: <span class='ident'>u32</span>,
@@ -7919,21 +7958,21 @@
                     <span class='kw'>pub</span> <span class='ident'>sin6_scope_id</span>: <span class='ident'>u32</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s6_addr</span>: [<span class='ident'>u16</span>; <span class='number'>8</span>]
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>imr_multiaddr</span>: <span class='ident'>in_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>imr_interface</span>: <span class='ident'>in_addr</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_multiaddr</span>: <span class='ident'>in6_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_interface</span>: <span class='ident'>c_uint</span>,
                 }
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
                     <span class='kw'>pub</span> <span class='ident'>ai_flags</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_family</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_socktype</span>: <span class='ident'>c_int</span>,
@@ -7947,6 +7986,9 @@
                 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_un</span> {
                     <span class='kw'>pub</span> <span class='ident'>sun_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sun_path</span>: [<span class='ident'>c_char</span>; <span class='number'>108</span>]
+                }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>sockaddr_un</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>sockaddr_un</span> { <span class='op'>*</span><span class='self'>self</span> }
                 }
             }
         }
@@ -8073,7 +8115,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LPCH</span> <span class='op'>=</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CHAR</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>SECURITY_ATTRIBUTES</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>SECURITY_ATTRIBUTES</span> {
                     <span class='kw'>pub</span> <span class='ident'>nLength</span>: <span class='ident'>DWORD</span>,
                     <span class='kw'>pub</span> <span class='ident'>lpSecurityDescriptor</span>: <span class='ident'>LPVOID</span>,
                     <span class='kw'>pub</span> <span class='ident'>bInheritHandle</span>: <span class='ident'>BOOL</span>,
@@ -8097,7 +8139,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>int64</span> <span class='op'>=</span> <span class='ident'>i64</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>STARTUPINFO</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>STARTUPINFO</span> {
                     <span class='kw'>pub</span> <span class='ident'>cb</span>: <span class='ident'>DWORD</span>,
                     <span class='kw'>pub</span> <span class='ident'>lpReserved</span>: <span class='ident'>LPWSTR</span>,
                     <span class='kw'>pub</span> <span class='ident'>lpDesktop</span>: <span class='ident'>LPWSTR</span>,
@@ -8120,7 +8162,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LPSTARTUPINFO</span> <span class='op'>=</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>STARTUPINFO</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PROCESS_INFORMATION</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PROCESS_INFORMATION</span> {
                     <span class='kw'>pub</span> <span class='ident'>hProcess</span>: <span class='ident'>HANDLE</span>,
                     <span class='kw'>pub</span> <span class='ident'>hThread</span>: <span class='ident'>HANDLE</span>,
                     <span class='kw'>pub</span> <span class='ident'>dwProcessId</span>: <span class='ident'>DWORD</span>,
@@ -8129,7 +8171,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LPPROCESS_INFORMATION</span> <span class='op'>=</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>PROCESS_INFORMATION</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>SYSTEM_INFO</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>SYSTEM_INFO</span> {
                     <span class='kw'>pub</span> <span class='ident'>wProcessorArchitecture</span>: <span class='ident'>WORD</span>,
                     <span class='kw'>pub</span> <span class='ident'>wReserved</span>: <span class='ident'>WORD</span>,
                     <span class='kw'>pub</span> <span class='ident'>dwPageSize</span>: <span class='ident'>DWORD</span>,
@@ -8145,7 +8187,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LPSYSTEM_INFO</span> <span class='op'>=</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SYSTEM_INFO</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MEMORY_BASIC_INFORMATION</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MEMORY_BASIC_INFORMATION</span> {
                     <span class='kw'>pub</span> <span class='ident'>BaseAddress</span>: <span class='ident'>LPVOID</span>,
                     <span class='kw'>pub</span> <span class='ident'>AllocationBase</span>: <span class='ident'>LPVOID</span>,
                     <span class='kw'>pub</span> <span class='ident'>AllocationProtect</span>: <span class='ident'>DWORD</span>,
@@ -8157,7 +8199,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LPMEMORY_BASIC_INFORMATION</span> <span class='op'>=</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>MEMORY_BASIC_INFORMATION</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>OVERLAPPED</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>OVERLAPPED</span> {
                     <span class='kw'>pub</span> <span class='ident'>Internal</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_ulong</span>,
                     <span class='kw'>pub</span> <span class='ident'>InternalHigh</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_ulong</span>,
                     <span class='kw'>pub</span> <span class='ident'>Offset</span>: <span class='ident'>DWORD</span>,
@@ -8168,7 +8210,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LPOVERLAPPED</span> <span class='op'>=</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OVERLAPPED</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FILETIME</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FILETIME</span> {
                     <span class='kw'>pub</span> <span class='ident'>dwLowDateTime</span>: <span class='ident'>DWORD</span>,
                     <span class='kw'>pub</span> <span class='ident'>dwHighDateTime</span>: <span class='ident'>DWORD</span>,
                 }
@@ -8176,7 +8218,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LPFILETIME</span> <span class='op'>=</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FILETIME</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>GUID</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>GUID</span> {
                     <span class='kw'>pub</span> <span class='ident'>Data1</span>: <span class='ident'>DWORD</span>,
                     <span class='kw'>pub</span> <span class='ident'>Data2</span>: <span class='ident'>WORD</span>,
                     <span class='kw'>pub</span> <span class='ident'>Data3</span>: <span class='ident'>WORD</span>,
@@ -8184,7 +8226,7 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>WSAPROTOCOLCHAIN</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>WSAPROTOCOLCHAIN</span> {
                     <span class='kw'>pub</span> <span class='ident'>ChainLen</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ChainEntries</span>: [<span class='ident'>DWORD</span>; <span class='ident'>MAX_PROTOCOL_CHAIN</span> <span class='kw'>as</span> <span class='ident'>usize</span>],
                 }
@@ -8214,6 +8256,9 @@
                     <span class='kw'>pub</span> <span class='ident'>dwProviderReserved</span>: <span class='ident'>DWORD</span>,
                     <span class='kw'>pub</span> <span class='ident'>szProtocol</span>: [<span class='ident'>u8</span>; <span class='ident'>WSAPROTOCOL_LEN</span> <span class='kw'>as</span> <span class='ident'>usize</span> <span class='op'>+</span> <span class='number'>1</span>],
                 }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>WSAPROTOCOL_INFO</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>WSAPROTOCOL_INFO</span> { <span class='op'>*</span><span class='self'>self</span> }
+                }
 
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LPWSAPROTOCOL_INFO</span> <span class='op'>=</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>WSAPROTOCOL_INFO</span>;
 
@@ -8231,6 +8276,9 @@
                     <span class='kw'>pub</span> <span class='ident'>dwReserved1</span>: <span class='ident'>DWORD</span>,
                     <span class='kw'>pub</span> <span class='ident'>cFileName</span>: [<span class='ident'>wchar_t</span>; <span class='number'>260</span>], <span class='comment'>// #define MAX_PATH 260</span>
                     <span class='kw'>pub</span> <span class='ident'>cAlternateFileName</span>: [<span class='ident'>wchar_t</span>; <span class='number'>14</span>],
+                }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>WIN32_FIND_DATAW</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>WIN32_FIND_DATAW</span> { <span class='op'>*</span><span class='self'>self</span> }
                 }
 
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LPWIN32_FIND_DATAW</span> <span class='op'>=</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>WIN32_FIND_DATAW</span>;
@@ -8251,7 +8299,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>rlim_t</span> <span class='op'>=</span> <span class='ident'>u64</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>glob_t</span> {
                     <span class='kw'>pub</span> <span class='ident'>gl_pathc</span>:  <span class='ident'>size_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>__unused1</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>gl_offs</span>:   <span class='ident'>size_t</span>,
@@ -8268,23 +8316,23 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timeval</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_usec</span>: <span class='ident'>suseconds_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>timespec</span> {
                     <span class='kw'>pub</span> <span class='ident'>tv_sec</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>tv_nsec</span>: <span class='ident'>c_long</span>,
                 }
 
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
+                <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>timezone</span> {}
 
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>sighandler_t</span> <span class='op'>=</span> <span class='ident'>size_t</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rlimit</span> {
                     <span class='kw'>pub</span> <span class='ident'>rlim_cur</span>: <span class='ident'>rlim_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>rlim_max</span>: <span class='ident'>rlim_t</span>,
@@ -8295,7 +8343,7 @@
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>common</span>::<span class='ident'>posix01</span>::<span class='ident'>timeval</span>;
                 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>os</span>::<span class='ident'>arch</span>::<span class='ident'>c95</span>::<span class='ident'>c_long</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span>
                 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>rusage</span> {
                     <span class='kw'>pub</span> <span class='ident'>ru_utime</span>: <span class='ident'>timeval</span>,
                     <span class='kw'>pub</span> <span class='ident'>ru_stime</span>: <span class='ident'>timeval</span>,
@@ -8325,7 +8373,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_port_t</span> <span class='op'>=</span> <span class='ident'>u16</span>;
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>in_addr_t</span> <span class='op'>=</span> <span class='ident'>u32</span>;
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr</span> {
                     <span class='kw'>pub</span> <span class='ident'>sa_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sa_data</span>: [<span class='ident'>u8</span>; <span class='number'>14</span>],
@@ -8339,9 +8387,12 @@
                     <span class='kw'>pub</span> <span class='ident'>__ss_align</span>: <span class='ident'>i64</span>,
                     <span class='kw'>pub</span> <span class='ident'>__ss_pad2</span>: [<span class='ident'>u8</span>; <span class='number'>112</span>],
                 }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>sockaddr_storage</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>sockaddr_storage</span> { <span class='op'>*</span><span class='self'>self</span> }
+                }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin_port</span>: <span class='ident'>in_port_t</span>,
@@ -8350,12 +8401,12 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s_addr</span>: <span class='ident'>in_addr_t</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>sockaddr_in6</span> {
                     <span class='kw'>pub</span> <span class='ident'>sin6_len</span>: <span class='ident'>u8</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sin6_port</span>: <span class='ident'>in_port_t</span>,
@@ -8365,24 +8416,24 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>in6_addr</span> {
                     <span class='kw'>pub</span> <span class='ident'>s6_addr</span>: [<span class='ident'>u16</span>; <span class='number'>8</span>]
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>imr_multiaddr</span>: <span class='ident'>in_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>imr_interface</span>: <span class='ident'>in_addr</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ip6_mreq</span> {
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_multiaddr</span>: <span class='ident'>in6_addr</span>,
                     <span class='kw'>pub</span> <span class='ident'>ipv6mr_interface</span>: <span class='ident'>c_uint</span>,
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>addrinfo</span> {
                     <span class='kw'>pub</span> <span class='ident'>ai_flags</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_family</span>: <span class='ident'>c_int</span>,
                     <span class='kw'>pub</span> <span class='ident'>ai_socktype</span>: <span class='ident'>c_int</span>,
@@ -8399,9 +8450,12 @@
                     <span class='kw'>pub</span> <span class='ident'>sun_family</span>: <span class='ident'>sa_family_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>sun_path</span>: [<span class='ident'>c_char</span>; <span class='number'>104</span>]
                 }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>sockaddr_un</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>sockaddr_un</span> { <span class='op'>*</span><span class='self'>self</span> }
+                }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ifaddrs</span> {
                     <span class='kw'>pub</span> <span class='ident'>ifa_next</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ifaddrs</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_name</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_char</span>,
                     <span class='kw'>pub</span> <span class='ident'>ifa_flags</span>: <span class='ident'>c_uint</span>,
@@ -8466,7 +8520,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>blkcnt_t</span> <span class='op'>=</span> <span class='ident'>i64</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>dev_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_mode</span>: <span class='ident'>mode_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_nlink</span>: <span class='ident'>nlink_t</span>,
@@ -8492,7 +8546,7 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
@@ -8502,6 +8556,9 @@
                     <span class='kw'>pub</span> <span class='ident'>__sig</span>: <span class='ident'>c_long</span>,
                     <span class='kw'>pub</span> <span class='ident'>__opaque</span>: [<span class='ident'>c_char</span>; <span class='number'>36</span>]
                 }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>pthread_attr_t</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>pthread_attr_t</span> { <span class='op'>*</span><span class='self'>self</span> }
+                }
             }
             <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>posix08</span> {
             }
@@ -8509,7 +8566,7 @@
             }
             <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>extra</span> {
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>mach_timebase_info</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>mach_timebase_info</span> {
                     <span class='kw'>pub</span> <span class='ident'>numer</span>: <span class='ident'>u32</span>,
                     <span class='kw'>pub</span> <span class='ident'>denom</span>: <span class='ident'>u32</span>,
                 }
@@ -8572,7 +8629,7 @@
                 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>blkcnt_t</span> <span class='op'>=</span> <span class='ident'>i64</span>;
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>stat</span> {
                     <span class='kw'>pub</span> <span class='ident'>st_dev</span>: <span class='ident'>dev_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_mode</span>: <span class='ident'>mode_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>st_nlink</span>: <span class='ident'>nlink_t</span>,
@@ -8598,7 +8655,7 @@
                 }
 
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>utimbuf</span> {
                     <span class='kw'>pub</span> <span class='ident'>actime</span>: <span class='ident'>time_t</span>,
                     <span class='kw'>pub</span> <span class='ident'>modtime</span>: <span class='ident'>time_t</span>,
                 }
@@ -8608,6 +8665,9 @@
                     <span class='kw'>pub</span> <span class='ident'>__sig</span>: <span class='ident'>c_long</span>,
                     <span class='kw'>pub</span> <span class='ident'>__opaque</span>: [<span class='ident'>c_char</span>; <span class='number'>56</span>]
                 }
+                <span class='kw'>impl</span> ::<span class='ident'>core</span>::<span class='ident'>clone</span>::<span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>pthread_attr_t</span> {
+                    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>pthread_attr_t</span> { <span class='op'>*</span><span class='self'>self</span> }
+                }
             }
             <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>posix08</span> {
             }
@@ -8615,7 +8675,7 @@
             }
             <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>extra</span> {
                 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>mach_timebase_info</span> {
+                <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>, <span class='ident'>Clone</span>)]</span> <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>mach_timebase_info</span> {
                     <span class='kw'>pub</span> <span class='ident'>numer</span>: <span class='ident'>u32</span>,
                     <span class='kw'>pub</span> <span class='ident'>denom</span>: <span class='ident'>u32</span>,
                 }
@@ -8830,7 +8890,7 @@
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ERROR_IO_PENDING</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>997</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ERROR_FILE_INVALID</span> : <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>1006</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ERROR_NOT_FOUND</span>: <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>1168</span>;
-            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>INVALID_HANDLE_VALUE</span>: <span class='ident'>HANDLE</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>1</span> <span class='kw'>as</span> <span class='ident'>HANDLE</span>;
+            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>INVALID_HANDLE_VALUE</span>: <span class='ident'>HANDLE</span> <span class='op'>=</span> <span class='op'>!</span><span class='number'>0</span> <span class='kw'>as</span> <span class='ident'>HANDLE</span>;
 
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>DELETE</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='number'>0x00010000</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>READ_CONTROL</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='number'>0x00020000</span>;
@@ -8868,12 +8928,12 @@
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>WAIT_ABANDONED</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='number'>0x00000080</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>WAIT_OBJECT_0</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='number'>0x00000000</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>WAIT_TIMEOUT</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='number'>0x00000102</span>;
-            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>WAIT_FAILED</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>1</span>;
+            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>WAIT_FAILED</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='op'>!</span><span class='number'>0</span>;
 
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>DUPLICATE_CLOSE_SOURCE</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='number'>0x00000001</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>DUPLICATE_SAME_ACCESS</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='number'>0x00000002</span>;
 
-            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>INFINITE</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>1</span>;
+            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>INFINITE</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='op'>!</span><span class='number'>0</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>STILL_ACTIVE</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='number'>259</span>;
 
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MEM_COMMIT</span> : <span class='ident'>DWORD</span> <span class='op'>=</span> <span class='number'>0x00001000</span>;
@@ -9131,7 +9191,7 @@
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAP_FIXED</span> : <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0x0010</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAP_ANON</span> : <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0x0020</span>;
 
-            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAP_FAILED</span> : <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>1</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>;
+            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAP_FAILED</span> : <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span> <span class='op'>=</span> <span class='op'>!</span><span class='number'>0</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>;
 
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MCL_CURRENT</span> : <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0x0001</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MCL_FUTURE</span> : <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0x0002</span>;
@@ -10962,7 +11022,7 @@
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAP_FIXED</span> : <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0x0010</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAP_ANON</span> : <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0x1000</span>;
 
-            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAP_FAILED</span> : <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span> <span class='op'>=</span> <span class='op'>-</span><span class='number'>1</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>;
+            <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MAP_FAILED</span> : <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span> <span class='op'>=</span> <span class='op'>!</span><span class='number'>0</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>c_void</span>;
 
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MCL_CURRENT</span> : <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0x0001</span>;
             <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MCL_FUTURE</span> : <span class='ident'>c_int</span> <span class='op'>=</span> <span class='number'>0x0002</span>;

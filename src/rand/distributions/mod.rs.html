@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/steb/.cargo/registry/src/github.com-1ecc6299db9ec823/rand-0.3.5/src/distributions/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/steb/.cargo/registry/src/github.com-1ecc6299db9ec823/rand-0.3.7/src/distributions/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -437,6 +437,9 @@
 <span id="395">395</span>
 <span id="396">396</span>
 <span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2013 The Rust Project Developers. See the COPYRIGHT</span>
 <span class='comment'>// file at the top-level directory of this distribution and at</span>
@@ -499,6 +502,9 @@
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Sup</span><span class='op'>&gt;</span> <span class='ident'>Copy</span> <span class='kw'>for</span> <span class='ident'>RandSample</span><span class='op'>&lt;</span><span class='ident'>Sup</span><span class='op'>&gt;</span> {}
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Sup</span><span class='op'>&gt;</span> <span class='ident'>Clone</span> <span class='kw'>for</span> <span class='ident'>RandSample</span><span class='op'>&lt;</span><span class='ident'>Sup</span><span class='op'>&gt;</span> {
+    <span class='kw'>fn</span> <span class='ident'>clone</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> { <span class='op'>*</span><span class='self'>self</span> }
+}
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>Sup</span>: <span class='ident'>Rand</span><span class='op'>&gt;</span> <span class='ident'>Sample</span><span class='op'>&lt;</span><span class='ident'>Sup</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>RandSample</span><span class='op'>&lt;</span><span class='ident'>Sup</span><span class='op'>&gt;</span> {
     <span class='kw'>fn</span> <span class='ident'>sample</span><span class='op'>&lt;</span><span class='ident'>R</span>: <span class='ident'>Rng</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>rng</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>R</span>) <span class='op'>-&gt;</span> <span class='ident'>Sup</span> { <span class='self'>self</span>.<span class='ident'>ind_sample</span>(<span class='ident'>rng</span>) }
@@ -828,7 +834,7 @@
     }
     <span class='attribute'>#[<span class='ident'>test</span>]</span> <span class='attribute'>#[<span class='ident'>should_panic</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_weighted_choice_weight_overflows</span>() {
-        <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> <span class='op'>!</span><span class='number'>0</span> <span class='op'>/</span> <span class='number'>2</span>; <span class='comment'>// x + x + 2 is the overflow</span>
+        <span class='kw'>let</span> <span class='ident'>x</span> <span class='op'>=</span> ::<span class='ident'>std</span>::<span class='ident'>u32</span>::<span class='ident'>MAX</span> <span class='op'>/</span> <span class='number'>2</span>; <span class='comment'>// x + x + 2 is the overflow</span>
         <span class='ident'>WeightedChoice</span>::<span class='ident'>new</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>Weighted</span> { <span class='ident'>weight</span>: <span class='ident'>x</span>, <span class='ident'>item</span>: <span class='number'>0</span> },
                                   <span class='ident'>Weighted</span> { <span class='ident'>weight</span>: <span class='number'>1</span>, <span class='ident'>item</span>: <span class='number'>1</span> },
                                   <span class='ident'>Weighted</span> { <span class='ident'>weight</span>: <span class='ident'>x</span>, <span class='ident'>item</span>: <span class='number'>2</span> },
