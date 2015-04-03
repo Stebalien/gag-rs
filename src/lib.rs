@@ -31,7 +31,6 @@
 //! If you don't want to throw away stdout, you can write it to a file:
 //!
 //! ```
-//! #![feature(io)]
 //! use std::fs::OpenOptions;
 //! use std::io::{Read, Write, Seek, SeekFrom};
 //! use gag::Redirect;
@@ -88,7 +87,7 @@
 //! println!("second");
 //! drop(hold); // printing happens here!
 //! ```
-#![feature(unsafe_destructor, from_raw_os)]
+#![feature(from_raw_os)]
 extern crate libc;
 extern crate tempdir;
 

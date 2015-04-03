@@ -60,7 +60,6 @@ impl<F> Redirect<F> where F: AsRawFd {
 
 }
 
-#[unsafe_destructor]
 impl<F> Drop for Redirect<F> {
     fn drop(&mut self) {
         unsafe {
