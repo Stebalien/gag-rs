@@ -88,7 +88,7 @@
 //! println!("second");
 //! drop(hold); // printing happens here!
 //! ```
-#![feature(unsafe_destructor, io_ext)]
+#![feature(unsafe_destructor, from_raw_os)]
 extern crate libc;
 extern crate tempdir;
 

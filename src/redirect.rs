@@ -1,36 +1,13 @@
 use ::libc;
 use ::std;
 
-use std::os::unix::io::{Fd, AsRawFd};
+use std::os::unix::io::{RawFd, AsRawFd};
 use std::io;
-
-/// Private helper trait because AsRawFd is not implemented on &mut T.
-trait MyRawFd {
-    fn my_raw_fd(&self) -> Fd;
-}
-
-impl<T: AsRawFd> MyRawFd for T {
-    fn my_raw_fd(&self) -> Fd {
-        self.as_raw_fd()
-    }
-}
-
-impl<'a, T: AsRawFd> MyRawFd for &'a mut T {
-    fn my_raw_fd(&self) -> Fd {
-        self.as_raw_fd()
-    }
-}
-
-impl MyRawFd for Fd {
-    fn my_raw_fd(&self) -> Fd {
-        *self
-    }
-}
 
 /// Redirect stderr/stdout to a file.
 pub struct Redirect<F> {
-    std_fd: Fd,
-    std_fd_dup: Fd,
+    std_fd: RawFd,
+    std_fd_dup: RawFd,
     file: F,
 }
 
@@ -42,9 +19,9 @@ impl<F> Redirect<F> {
     }
 }
 
-impl<F> Redirect<F> where F: MyRawFd {
-    fn make(std_fd: Fd, file: F) -> io::Result<Self> {
-        let file_fd = file.my_raw_fd();
+impl<F> Redirect<F> where F: AsRawFd {
+    fn make(std_fd: RawFd, file: F) -> io::Result<Self> {
+        let file_fd = file.as_raw_fd();
         // BEGIN: Don't panic
         let std_fd_dup = unsafe { libc::dup(std_fd) };
         if std_fd_dup < 0 {
@@ -52,7 +29,7 @@ impl<F> Redirect<F> where F: MyRawFd {
         }
         let gag = Redirect {
             std_fd: std_fd,
-            std_fd_dup: std_fd_dup as Fd,
+            std_fd_dup: std_fd_dup as RawFd,
             file: file,
         };
         // END: Don't panic.

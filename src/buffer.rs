@@ -1,13 +1,13 @@
 use std::io::{self, Read};
 use std::fs::File;
 
-use tempfile::{tempfile_pair, TempFile};
+use tempfile::tempfile_pair;
 use redirect::Redirect;
 
 /// Buffer output in an in-memory buffer.
 pub struct BufferRedirect {
     #[allow(dead_code)]
-    redir: Redirect<TempFile>,
+    redir: Redirect<File>,
     outer: File,
 }
 
