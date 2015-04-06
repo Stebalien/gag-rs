@@ -3,6 +3,9 @@ use ::std;
 
 use std::os::unix::io::{RawFd, AsRawFd};
 use std::io;
+use std::sync::atomic::{Ordering, AtomicBool, ATOMIC_BOOL_INIT};
+
+static REDIRECT_FLAGS: [AtomicBool; 2] = [ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT];
 
 /// Redirect stderr/stdout to a file.
 pub struct Redirect<F> {
@@ -16,24 +19,34 @@ impl<F> Redirect<F> {
         // Check for errors?
         libc::dup2(self.std_fd_dup, self.std_fd);
         libc::close(self.std_fd_dup);
+        REDIRECT_FLAGS[self.std_fd as usize].store(false, Ordering::Relaxed);
     }
 }
 
 impl<F> Redirect<F> where F: AsRawFd {
     fn make(std_fd: RawFd, file: F) -> io::Result<Self> {
         let file_fd = file.as_raw_fd();
-        // BEGIN: Don't panic
         let std_fd_dup = unsafe { libc::dup(std_fd) };
         if std_fd_dup < 0 {
-            return Err(io::Error::last_os_error())
+            return Err(io::Error::last_os_error());
         }
+
+        // If this ends up panicing, something is seriously wrong. Regardless, we will only end up
+        // leaking a single file descriptor so it's not the end of the world.
+        if REDIRECT_FLAGS[std_fd as usize].fetch_or(true, Ordering::Relaxed) {
+            unsafe { libc::close(std_fd_dup); }
+            return Err(io::Error::new(io::ErrorKind::AlreadyExists, "Redirect already exists."));
+        }
+
+        // Dropping this will close std_fd_dup
         let gag = Redirect {
             std_fd: std_fd,
             std_fd_dup: std_fd_dup as RawFd,
             file: file,
         };
-        // END: Don't panic.
+
         if unsafe { libc::dup2(file_fd, std_fd) } < 0 {
+            // Drop is still correct even if this doesn't succeed. 
             return Err(io::Error::last_os_error())
         }
         Ok(gag)

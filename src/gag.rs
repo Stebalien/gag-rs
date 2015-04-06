@@ -21,4 +21,3 @@ impl Gag {
         Redirect::stderr(try!(null())).map(|r| Gag(r))
     }
 }
-

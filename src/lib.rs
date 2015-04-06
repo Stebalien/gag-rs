@@ -28,6 +28,19 @@
 //! println!("Nor this.");
 //! ```
 //!
+//! However, you can't open multiple Gags/Redirects/Holds for the same output at once:
+//! ```
+//! use gag::Gag;
+//! // Multiple stdout gags
+//! let gag_a = Gag::stdout().unwrap();
+//! let gag_b_result = Gag::stdout();
+//! assert!(gag_b_result.is_err());
+//! assert!(gag_b_result.unwrap_err().kind() == std::io::ErrorKind::AlreadyExists);
+//!
+//! // However, you can still gag stderr:
+//! let gag_c = Gag::stderr().unwrap()
+//! ```
+//!
 //! If you don't want to throw away stdout, you can write it to a file:
 //!
 //! ```
