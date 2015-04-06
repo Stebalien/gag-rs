@@ -143,6 +143,19 @@
 <span id="101">101</span>
 <span id="102">102</span>
 <span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Temporarily redirect stdout/stderr.</span>
 <span class='doccomment'>//!</span>
@@ -172,6 +185,19 @@
 <span class='doccomment'>//!     println!(&quot;Not this...&quot;);</span>
 <span class='doccomment'>//! }</span>
 <span class='doccomment'>//! println!(&quot;Nor this.&quot;);</span>
+<span class='doccomment'>//! ```</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! However, you can&#39;t open multiple Gags/Redirects/Holds for the same output at once:</span>
+<span class='doccomment'>//! ```</span>
+<span class='doccomment'>//! use gag::Gag;</span>
+<span class='doccomment'>//! // Multiple stdout gags</span>
+<span class='doccomment'>//! let gag_a = Gag::stdout().unwrap();</span>
+<span class='doccomment'>//! let gag_b_result = Gag::stdout();</span>
+<span class='doccomment'>//! assert!(gag_b_result.is_err());</span>
+<span class='doccomment'>//! assert!(gag_b_result.unwrap_err().kind() == std::io::ErrorKind::AlreadyExists);</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! // However, you can still gag stderr:</span>
+<span class='doccomment'>//! let gag_c = Gag::stderr().unwrap()</span>
 <span class='doccomment'>//! ```</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! If you don&#39;t want to throw away stdout, you can write it to a file:</span>

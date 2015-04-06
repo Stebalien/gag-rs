@@ -43,7 +43,7 @@
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>gag</a><wbr></span><span class='out-of-band'><a href='stability.html'>[stability]</a> <span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-0' href='../src/gag/lib.rs.html#1-103'>[src]</a></span></h1>
+        </span><a id='src-0' href='../src/gag/lib.rs.html#1-116'>[src]</a></span></h1>
 <div class='docblock'><p>Temporarily redirect stdout/stderr.</p>
 
 <p>For example, one can temporarily throw away stdout output:</p>
@@ -71,6 +71,19 @@
 }
 <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Nor this.&quot;</span>);
 </pre>
+
+<p>However, you can&#39;t open multiple Gags/Redirects/Holds for the same output at once:
+```
+use gag::Gag;
+// Multiple stdout gags
+let gag_a = Gag::stdout().unwrap();
+let gag_b_result = Gag::stdout();
+assert!(gag_b_result.is_err());
+assert!(gag_b_result.unwrap_err().kind() == std::io::ErrorKind::AlreadyExists);</p>
+
+<p>// However, you can still gag stderr:
+let gag_c = Gag::stderr().unwrap()
+```</p>
 
 <p>If you don&#39;t want to throw away stdout, you can write it to a file:</p>
 <pre id='rust-example-rendered' class='rust '>
