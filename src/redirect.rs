@@ -1,5 +1,4 @@
 use ::libc;
-use ::std;
 
 use std::os::unix::io::{RawFd, AsRawFd};
 use std::io;
@@ -9,23 +8,19 @@ static REDIRECT_FLAGS: [AtomicBool; 2] = [ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT];
 
 /// Redirect stderr/stdout to a file.
 pub struct Redirect<F> {
-    std_fd: RawFd,
-    std_fd_dup: RawFd,
+    #[allow(dead_code)]
+    fds: RedirectFds,
     file: F,
 }
 
-impl<F> Redirect<F> {
-    unsafe fn close(&mut self) {
-        // Check for errors?
-        libc::dup2(self.std_fd_dup, self.std_fd);
-        libc::close(self.std_fd_dup);
-        REDIRECT_FLAGS[self.std_fd as usize].store(false, Ordering::Relaxed);
-    }
+// Separate struct so we can destruct the redirect and drop the file descriptors.
+struct RedirectFds {
+    std_fd: RawFd,
+    std_fd_dup: RawFd,
 }
 
-impl<F> Redirect<F> where F: AsRawFd {
-    fn make(std_fd: RawFd, file: F) -> io::Result<Self> {
-        let file_fd = file.as_raw_fd();
+impl RedirectFds {
+    fn make(std_fd: RawFd, file_fd: RawFd) -> io::Result<RedirectFds> {
         let std_fd_dup = unsafe { libc::dup(std_fd) };
         if std_fd_dup < 0 {
             return Err(io::Error::last_os_error());
@@ -39,17 +34,36 @@ impl<F> Redirect<F> where F: AsRawFd {
         }
 
         // Dropping this will close std_fd_dup
-        let gag = Redirect {
+        let fds = RedirectFds {
             std_fd: std_fd,
             std_fd_dup: std_fd_dup as RawFd,
-            file: file,
         };
 
-        if unsafe { libc::dup2(file_fd, std_fd) } < 0 {
+        match unsafe { libc::dup2(file_fd, std_fd) } {
             // Drop is still correct even if this doesn't succeed. 
-            return Err(io::Error::last_os_error())
+            -1 => Err(io::Error::last_os_error()),
+            _ => Ok(fds),
         }
-        Ok(gag)
+    }
+}
+
+impl Drop for RedirectFds {
+    fn drop(&mut self) {
+        unsafe {
+            // Check for errors?
+            libc::dup2(self.std_fd_dup, self.std_fd);
+            libc::close(self.std_fd_dup);
+            REDIRECT_FLAGS[self.std_fd as usize].store(false, Ordering::Relaxed);
+        }
+    }
+}
+
+impl<F> Redirect<F> where F: AsRawFd {
+    fn make(std_fd: RawFd, file: F) -> io::Result<Self> {
+        Ok(Redirect {
+            fds: try!(RedirectFds::make(std_fd, file.as_raw_fd())),
+            file: file,
+        })
     }
     /// Redirect stdout to `file`.
     pub fn stdout(file: F) -> io::Result<Self> {
@@ -61,22 +75,8 @@ impl<F> Redirect<F> where F: AsRawFd {
     }
 
     /// Extract inner file object.
-    pub fn into_inner(mut self) -> F {
-        unsafe {
-            // Is this safe?
-            self.close();
-            let file = std::mem::transmute_copy(&self.file);
-            std::mem::forget(self);
-            file
-        }
-    }
-
-}
-
-impl<F> Drop for Redirect<F> {
-    fn drop(&mut self) {
-        unsafe {
-            self.close();
-        }
+    pub fn into_inner(self) -> F {
+        self.file
     }
 }
+
