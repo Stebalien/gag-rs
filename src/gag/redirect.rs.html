@@ -190,7 +190,7 @@
         <span class='kw'>unsafe</span> {
             <span class='comment'>// Is this safe?</span>
             <span class='self'>self</span>.<span class='ident'>close</span>();
-            <span class='kw'>let</span> <span class='ident'>file</span> <span class='op'>=</span> <span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute_copy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>file</span>);
+            <span class='kw'>let</span> <span class='ident'>file</span> <span class='op'>=</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>::<span class='ident'>read</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>file</span>);
             <span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>forget</span>(<span class='self'>self</span>);
             <span class='ident'>file</span>
         }
