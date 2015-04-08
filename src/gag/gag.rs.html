@@ -63,6 +63,10 @@
 <span id="21">21</span>
 <span id="22">22</span>
 <span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fs</span>::<span class='ident'>OpenOptions</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fs</span>::<span class='ident'>File</span>;
@@ -80,11 +84,15 @@
 <span class='kw'>impl</span> <span class='ident'>Gag</span> {
     <span class='doccomment'>/// Discard stdout until dropped.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>stdout</span>() <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Gag</span><span class='op'>&gt;</span> {
-        <span class='ident'>Redirect</span>::<span class='ident'>stdout</span>(<span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>null</span>())).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>r</span><span class='op'>|</span> <span class='ident'>Gag</span>(<span class='ident'>r</span>))
+        <span class='kw'>let</span> <span class='ident'>nul</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>null</span>());
+        <span class='kw'>let</span> <span class='ident'>redir</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>Redirect</span>::<span class='ident'>stdout</span>(<span class='ident'>nul</span>));
+        <span class='prelude-val'>Ok</span>(<span class='ident'>Gag</span>(<span class='ident'>redir</span>))
     }
     <span class='doccomment'>/// Discard stderr until dropped.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>stderr</span>() <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Gag</span><span class='op'>&gt;</span> {
-        <span class='ident'>Redirect</span>::<span class='ident'>stderr</span>(<span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>null</span>())).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>r</span><span class='op'>|</span> <span class='ident'>Gag</span>(<span class='ident'>r</span>))
+        <span class='kw'>let</span> <span class='ident'>nul</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>null</span>());
+        <span class='kw'>let</span> <span class='ident'>redir</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>Redirect</span>::<span class='ident'>stderr</span>(<span class='ident'>nul</span>));
+        <span class='prelude-val'>Ok</span>(<span class='ident'>Gag</span>(<span class='ident'>redir</span>))
     }
 }
 </pre>
