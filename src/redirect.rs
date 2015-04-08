@@ -6,6 +6,38 @@ use std::sync::atomic::{Ordering, AtomicBool, ATOMIC_BOOL_INIT};
 
 static REDIRECT_FLAGS: [AtomicBool; 2] = [ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT];
 
+pub struct RedirectError<F> {
+    pub error: io::Error,
+    pub file: F,
+}
+
+impl<F> From<RedirectError<F>> for io::Error {
+    fn from(err: RedirectError<F>) -> io::Error {
+        err.error
+    }
+}
+
+impl<F> ::std::error::Error for RedirectError<F> {
+    fn description(&self) -> &str {
+        self.error.description()
+    }
+    fn cause(&self) -> Option<&::std::error::Error> {
+        Some(&self.error)
+    }
+}
+
+impl<F> ::std::fmt::Display for RedirectError<F> {
+    fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> Result<(), ::std::fmt::Error> {
+        self.error.fmt(fmt)
+    }
+}
+
+impl<F> ::std::fmt::Debug for RedirectError<F> {
+    fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> Result<(), ::std::fmt::Error> {
+        self.error.fmt(fmt)
+    }
+}
+
 /// Redirect stderr/stdout to a file.
 pub struct Redirect<F> {
     #[allow(dead_code)]
@@ -59,18 +91,22 @@ impl Drop for RedirectFds {
 }
 
 impl<F> Redirect<F> where F: AsRawFd {
-    fn make(std_fd: RawFd, file: F) -> io::Result<Self> {
+    fn make(std_fd: RawFd, file: F) -> Result<Self, RedirectError<F>> {
+        let fds = match RedirectFds::make(std_fd, file.as_raw_fd()) {
+            Ok(fds) => fds,
+            Err(e) => return Err(RedirectError { error: e, file: file})
+        };
         Ok(Redirect {
-            fds: try!(RedirectFds::make(std_fd, file.as_raw_fd())),
+            fds: fds,
             file: file,
         })
     }
     /// Redirect stdout to `file`.
-    pub fn stdout(file: F) -> io::Result<Self> {
+    pub fn stdout(file: F) -> Result<Self, RedirectError<F>> {
         Redirect::make(libc::STDOUT_FILENO, file)
     }
     /// Redirect stderr to `file`.
-    pub fn stderr(file: F) -> io::Result<Self> {
+    pub fn stderr(file: F) -> Result<Self, RedirectError<F>> {
         Redirect::make(libc::STDERR_FILENO, file)
     }
 

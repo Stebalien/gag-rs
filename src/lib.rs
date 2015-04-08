@@ -111,6 +111,6 @@ mod tempfile;
 mod hold;
 
 pub use gag::Gag;
-pub use redirect::Redirect;
+pub use redirect::{Redirect, RedirectError};
 pub use buffer::{BufferRedirect, Buffer};
 pub use hold::Hold;

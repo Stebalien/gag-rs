@@ -14,10 +14,14 @@ pub struct Gag(Redirect<File>);
 impl Gag {
     /// Discard stdout until dropped.
     pub fn stdout() -> io::Result<Gag> {
-        Redirect::stdout(try!(null())).map(|r| Gag(r))
+        let nul = try!(null());
+        let redir = try!(Redirect::stdout(nul));
+        Ok(Gag(redir))
     }
     /// Discard stderr until dropped.
     pub fn stderr() -> io::Result<Gag> {
-        Redirect::stderr(try!(null())).map(|r| Gag(r))
+        let nul = try!(null());
+        let redir = try!(Redirect::stderr(nul));
+        Ok(Gag(redir))
     }
 }

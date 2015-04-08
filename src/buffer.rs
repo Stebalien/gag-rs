@@ -25,16 +25,18 @@ impl BufferRedirect {
     /// Buffer stdout.
     pub fn stdout() -> io::Result<BufferRedirect> {
         let (inner, outer) = try!(tempfile_pair());
-        Redirect::stdout(inner).map(|r| BufferRedirect {
-            redir: r,
+        let redir = try!(Redirect::stdout(inner));
+        Ok(BufferRedirect {
+            redir: redir,
             outer: outer
         })
     }
     /// Buffer stderr.
     pub fn stderr() -> io::Result<BufferRedirect> {
         let (inner, outer) = try!(tempfile_pair());
-        Redirect::stderr(inner).map(|r| BufferRedirect {
-            redir: r,
+        let redir = try!(Redirect::stderr(inner));
+        Ok(BufferRedirect {
+            redir: redir,
             outer: outer
         })
     }
