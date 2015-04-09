@@ -43,7 +43,7 @@
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>gag</a><wbr></span><span class='out-of-band'><a href='stability.html'>[stability]</a> <span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-0' href='../src/gag/lib.rs.html#1-116'>[src]</a></span></h1>
+        </span><a id='src-0' href='../src/gag/lib.rs.html#1-117'>[src]</a></span></h1>
 <div class='docblock'><p>Temporarily redirect stdout/stderr.</p>
 
 <p>For example, one can temporarily throw away stdout output:</p>
@@ -72,18 +72,18 @@
 <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Nor this.&quot;</span>);
 </pre>
 
-<p>However, you can&#39;t open multiple Gags/Redirects/Holds for the same output at once:
-```
-use gag::Gag;
-// Multiple stdout gags
-let gag_a = Gag::stdout().unwrap();
-let gag_b_result = Gag::stdout();
-assert!(gag_b_result.is_err());
-assert!(gag_b_result.unwrap_err().kind() == std::io::ErrorKind::AlreadyExists);</p>
+<p>However, you can&#39;t open multiple Gags/Redirects/Holds for the same output at once:</p>
+<pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>gag</span>::<span class='ident'>Gag</span>;
+<span class='comment'>// Multiple stdout gags</span>
+<span class='kw'>let</span> <span class='ident'>gag_a</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stdout</span>().<span class='ident'>unwrap</span>();
+<span class='kw'>let</span> <span class='ident'>gag_b_result</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stdout</span>();
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>gag_b_result</span>.<span class='ident'>is_err</span>());
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>gag_b_result</span>.<span class='ident'>unwrap_err</span>().<span class='ident'>kind</span>() <span class='op'>==</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>ErrorKind</span>::<span class='ident'>AlreadyExists</span>);
 
-<p>// However, you can still gag stderr:
-let gag_c = Gag::stderr().unwrap()
-```</p>
+<span class='comment'>// However, you can still gag stderr:</span>
+<span class='kw'>let</span> <span class='ident'>gag_c</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stderr</span>().<span class='ident'>unwrap</span>()
+</pre>
 
 <p>If you don&#39;t want to throw away stdout, you can write it to a file:</p>
 <pre id='rust-example-rendered' class='rust '>
