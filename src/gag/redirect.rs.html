@@ -165,7 +165,7 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::{<span class='ident'>Ordering</span>, <span class='ident'>AtomicBool</span>, <span class='ident'>ATOMIC_BOOL_INIT</span>};
 
-<span class='kw'>static</span> <span class='ident'>REDIRECT_FLAGS</span>: [<span class='ident'>AtomicBool</span>; <span class='number'>2</span>] <span class='op'>=</span> [<span class='ident'>ATOMIC_BOOL_INIT</span>, <span class='ident'>ATOMIC_BOOL_INIT</span>];
+<span class='kw'>static</span> <span class='ident'>REDIRECT_FLAGS</span>: [<span class='ident'>AtomicBool</span>; <span class='number'>3</span>] <span class='op'>=</span> [<span class='ident'>ATOMIC_BOOL_INIT</span>, <span class='ident'>ATOMIC_BOOL_INIT</span>, <span class='ident'>ATOMIC_BOOL_INIT</span>];
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> {
     <span class='kw'>pub</span> <span class='ident'>error</span>: <span class='ident'>io</span>::<span class='ident'>Error</span>,
