@@ -4,7 +4,7 @@ use std::os::unix::io::{RawFd, AsRawFd};
 use std::io;
 use std::sync::atomic::{Ordering, AtomicBool, ATOMIC_BOOL_INIT};
 
-static REDIRECT_FLAGS: [AtomicBool; 2] = [ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT];
+static REDIRECT_FLAGS: [AtomicBool; 3] = [ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT];
 
 pub struct RedirectError<F> {
     pub error: io::Error,
