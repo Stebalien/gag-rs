@@ -29,6 +29,7 @@
 //! ```
 //!
 //! However, you can't open multiple Gags/Redirects/Holds for the same output at once:
+//!
 //! ```
 //! use gag::Gag;
 //! // Multiple stdout gags
