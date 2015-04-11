@@ -79,10 +79,10 @@
 <span class='kw'>let</span> <span class='ident'>gag_a</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stdout</span>().<span class='ident'>unwrap</span>();
 <span class='kw'>let</span> <span class='ident'>gag_b_result</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stdout</span>();
 <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>gag_b_result</span>.<span class='ident'>is_err</span>());
-<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>gag_b_result</span>.<span class='ident'>unwrap_err</span>().<span class='ident'>kind</span>() <span class='op'>==</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>ErrorKind</span>::<span class='ident'>AlreadyExists</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>gag_b_result</span>.<span class='ident'>err</span>().<span class='ident'>expect</span>(<span class='string'>&quot;Expected an error&quot;</span>).<span class='ident'>kind</span>() <span class='op'>==</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>ErrorKind</span>::<span class='ident'>AlreadyExists</span>);
 
 <span class='comment'>// However, you can still gag stderr:</span>
-<span class='kw'>let</span> <span class='ident'>gag_c</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stderr</span>().<span class='ident'>unwrap</span>()
+<span class='kw'>let</span> <span class='ident'>gag_c</span> <span class='op'>=</span> <span class='ident'>Gag</span>::<span class='ident'>stderr</span>().<span class='ident'>unwrap</span>();
 </pre>
 
 <p>If you don&#39;t want to throw away stdout, you can write it to a file:</p>
