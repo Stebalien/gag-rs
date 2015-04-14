@@ -101,14 +101,12 @@
 //! println!("second");
 //! drop(hold); // printing happens here!
 //! ```
-#![feature(from_raw_os)]
 extern crate libc;
-extern crate tempdir;
+extern crate tempfile;
 
 mod redirect;
 mod gag;
 mod buffer;
-mod tempfile;
 mod hold;
 
 pub use gag::Gag;

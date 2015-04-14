@@ -1,18 +1,17 @@
 use std::io::{self, Read};
-use std::fs::File;
 
-use tempfile::tempfile_pair;
 use redirect::Redirect;
+use tempfile::TempFile;
 
 /// Buffer output in an in-memory buffer.
 pub struct BufferRedirect {
     #[allow(dead_code)]
-    redir: Redirect<File>,
-    outer: File,
+    redir: Redirect<TempFile>,
+    outer: TempFile,
 }
 
 /// An in-memory read-only buffer into which BufferRedirect buffers output.
-pub struct Buffer(File);
+pub struct Buffer(TempFile);
 
 impl Read for Buffer {
     #[inline(always)]
@@ -24,7 +23,9 @@ impl Read for Buffer {
 impl BufferRedirect {
     /// Buffer stdout.
     pub fn stdout() -> io::Result<BufferRedirect> {
-        let (inner, outer) = try!(tempfile_pair());
+        let mut iter = try!(TempFile::shared(2)).into_iter();
+        let inner = iter.next().unwrap();
+        let outer = iter.next().unwrap();
         let redir = try!(Redirect::stdout(inner));
         Ok(BufferRedirect {
             redir: redir,
@@ -33,7 +34,9 @@ impl BufferRedirect {
     }
     /// Buffer stderr.
     pub fn stderr() -> io::Result<BufferRedirect> {
-        let (inner, outer) = try!(tempfile_pair());
+        let mut iter = try!(TempFile::shared(2)).into_iter();
+        let inner = iter.next().unwrap();
+        let outer = iter.next().unwrap();
         let redir = try!(Redirect::stderr(inner));
         Ok(BufferRedirect {
             redir: redir,
