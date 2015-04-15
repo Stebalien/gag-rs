@@ -3,6 +3,7 @@ use ::libc;
 use std::os::unix::io::{RawFd, AsRawFd};
 use std::io;
 use std::sync::atomic::{Ordering, AtomicBool, ATOMIC_BOOL_INIT};
+use std::any::Any;
 
 static REDIRECT_FLAGS: [AtomicBool; 3] = [ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT];
 
@@ -17,7 +18,7 @@ impl<F> From<RedirectError<F>> for io::Error {
     }
 }
 
-impl<F> ::std::error::Error for RedirectError<F> {
+impl<F: Any> ::std::error::Error for RedirectError<F> {
     fn description(&self) -> &str {
         self.error.description()
     }
