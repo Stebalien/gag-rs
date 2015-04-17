@@ -1,6 +1,6 @@
 Redirect and/or gag stdout/stderr.
 
-![Build Status](https://travis-ci.org/Stebalien/gag-rs.svg)
+[![Build Status](https://travis-ci.org/Stebalien/gag-rs.svg?branch=master)](https://travis-ci.org/Stebalien/gag-rs)
 
 Documentation (with examples): https://stebalien.github.io/gag-rs/gag/
 
