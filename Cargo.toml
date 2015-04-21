@@ -13,3 +13,6 @@ license = "MIT"
 [dependencies]
 libc = "*"
 tempfile = "*"
+
+[target.windows.dependencies]
+winapi = "*"

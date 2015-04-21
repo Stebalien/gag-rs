@@ -101,7 +101,11 @@
 //! println!("second");
 //! drop(hold); // printing happens here!
 //! ```
+#[cfg(unix)]
 extern crate libc;
+#[cfg(windows)]
+extern crate winapi;
+
 extern crate tempfile;
 
 mod redirect;
