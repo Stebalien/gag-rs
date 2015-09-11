@@ -1,11 +1,14 @@
-#![feature(std_misc)]
 extern crate gag;
+#[macro_use]
+extern crate lazy_static;
 
 use std::io::{Read, Write};
 use gag::{BufferRedirect, Hold};
-use std::sync::{StaticMutex, MUTEX_INIT};
+use std::sync::{Mutex};
 
-static STDERR_MUTEX: StaticMutex = MUTEX_INIT;
+lazy_static! {
+    static ref STDERR_MUTEX: Mutex<()> = Mutex::new(());
+}
 
 
 // Catch the cases not covered by the doc tests.
