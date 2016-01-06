@@ -46,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-114' class='srclink' href='../src/tempfile/named.rs.html#23' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-102' class='srclink' href='../src/tempfile/named.rs.html#22' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct NamedTempFile(_);</pre><div class='docblock'><p>A named temporary file.</p>
 
 <p>This variant is <em>NOT</em> secure/reliable in the presence of a pathological temporary file cleaner.</p>
@@ -99,6 +99,26 @@ fails, it will return <code>self</code> in the resulting PersistError.</p>
 <p><em>SECURITY WARNING:</em> Only use this method if you&#39;re positive that a temporary file cleaner
 won&#39;t have deleted your file. Otherwise, you might end up persisting an attacker controlled
 file.</p>
+</div><h4 id='method.persist_noclobber' class='method'><code>fn <a href='#method.persist_noclobber' class='fnname'>persist_noclobber</a>&lt;P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/std/path/struct.Path.html' title='std::path::Path'>Path</a>&gt;&gt;(self, new_path: P) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/std/fs/struct.File.html' title='std::fs::File'>File</a>, PersistError&gt;</code></h4>
+<div class='docblock'><p>Persist the temporary file at the target path iff no file exists there.</p>
+
+<p>If a file exists at the target path, fail. If this method fails, it will return <code>self</code> in
+the resulting PersistError.</p>
+
+<p>Note: Temporary files cannot be persisted across filesystems.
+Also Note: This method is not atomic. It can leave the original link to the temporary file
+behind.</p>
+
+<p><em>SECURITY WARNING:</em> Only use this method if you&#39;re positive that a temporary file cleaner
+won&#39;t have deleted your file. Otherwise, you might end up persisting an attacker controlled
+file.</p>
+</div><h4 id='method.reopen' class='method'><code>fn <a href='#method.reopen' class='fnname'>reopen</a>(&amp;self) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/std/io/error/type.Result.html' title='std::io::error::Result'>Result</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/std/fs/struct.File.html' title='std::fs::File'>File</a>&gt;</code></h4>
+<div class='docblock'><p>Reopen the temporary file.</p>
+
+<p>This function is useful when you need multiple independent handles to the same file.
+It&#39;s perfectly fine to drop the original <code>NamedTempFile</code> while holding on to <code>File</code>s
+returned by this function; the <code>File</code>s will remain usable. However, they may not be
+nameable.</p>
 </div></div><h2 id='deref-methods'>Methods from <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a>&lt;Target=<a class='struct' href='https://doc.rust-lang.org/nightly/std/fs/struct.File.html' title='std::fs::File'>File</a>&gt;</h2><div class='impl-items'><h4 id='method.sync_all' class='method'><code>fn <a href='#method.sync_all' class='fnname'>sync_all</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html' title='std::io::error::Error'>Error</a>&gt;</code></h4>
 <div class='docblock'><p>Attempts to sync all OS-internal metadata to disk.</p>
 
@@ -161,6 +181,7 @@ in with 0s.</p>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a> for <a class='struct' href='../tempfile/struct.NamedTempFile.html' title='tempfile::NamedTempFile'>NamedTempFile</a></code></h3><div class='impl-items'><h4 id='assoc_type.Target' class='type'><code>type Target = <a class='struct' href='https://doc.rust-lang.org/nightly/std/fs/struct.File.html' title='std::fs::File'>File</a></code></h4>
 <h4 id='method.deref' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#method.deref' class='fnname'>deref</a>(&amp;self) -&gt; &amp;<a class='struct' href='https://doc.rust-lang.org/nightly/std/fs/struct.File.html' title='std::fs::File'>File</a></code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.DerefMut.html' title='core::ops::DerefMut'>DerefMut</a> for <a class='struct' href='../tempfile/struct.NamedTempFile.html' title='tempfile::NamedTempFile'>NamedTempFile</a></code></h3><div class='impl-items'><h4 id='method.deref_mut' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.DerefMut.html#method.deref_mut' class='fnname'>deref_mut</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/std/fs/struct.File.html' title='std::fs::File'>File</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;PersistError&gt; for <a class='struct' href='../tempfile/struct.NamedTempFile.html' title='tempfile::NamedTempFile'>NamedTempFile</a></code></h3><div class='impl-items'><h4 id='method.from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#method.from' class='fnname'>from</a>(error: PersistError) -&gt; <a class='struct' href='../tempfile/struct.NamedTempFile.html' title='tempfile::NamedTempFile'>NamedTempFile</a></code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../tempfile/struct.NamedTempFile.html' title='tempfile::NamedTempFile'>NamedTempFile</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
 </div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/std/io/trait.Read.html' title='std::io::Read'>Read</a> for <a class='struct' href='../tempfile/struct.NamedTempFile.html' title='tempfile::NamedTempFile'>NamedTempFile</a></code></h3><div class='impl-items'><h4 id='method.read' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/std/io/trait.Read.html#method.read' class='fnname'>read</a>(&amp;mut self, buf: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;mut [</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/std/io/error/type.Result.html' title='std::io::error::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;</code></h4>
 <h4 id='method.read_to_end' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/std/io/trait.Read.html#method.read_to_end' class='fnname'>read_to_end</a>(&amp;mut self, buf: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/std/io/error/struct.Error.html' title='std::io::error::Error'>Error</a>&gt;</code></h4>

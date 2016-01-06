@@ -100,21 +100,23 @@
 <span id="57">57</span>
 <span id="58">58</span>
 <span id="59">59</span>
+<span id="60">60</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='self'>self</span>, <span class='ident'>Read</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fs</span>::<span class='ident'>File</span>;
 
 <span class='kw'>use</span> <span class='ident'>redirect</span>::<span class='ident'>Redirect</span>;
-<span class='kw'>use</span> <span class='ident'>tempfile</span>::<span class='ident'>TempFile</span>;
+<span class='kw'>use</span> <span class='ident'>tempfile</span>::<span class='ident'>NamedTempFile</span>;
 
 <span class='doccomment'>/// Buffer output in an in-memory buffer.</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BufferRedirect</span> {
     <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
-    <span class='ident'>redir</span>: <span class='ident'>Redirect</span><span class='op'>&lt;</span><span class='ident'>TempFile</span><span class='op'>&gt;</span>,
-    <span class='ident'>outer</span>: <span class='ident'>TempFile</span>,
+    <span class='ident'>redir</span>: <span class='ident'>Redirect</span><span class='op'>&lt;</span><span class='ident'>File</span><span class='op'>&gt;</span>,
+    <span class='ident'>outer</span>: <span class='ident'>File</span>,
 }
 
 <span class='doccomment'>/// An in-memory read-only buffer into which BufferRedirect buffers output.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Buffer</span>(<span class='ident'>TempFile</span>);
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Buffer</span>(<span class='ident'>File</span>);
 
 <span class='kw'>impl</span> <span class='ident'>Read</span> <span class='kw'>for</span> <span class='ident'>Buffer</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
@@ -126,9 +128,9 @@
 <span class='kw'>impl</span> <span class='ident'>BufferRedirect</span> {
     <span class='doccomment'>/// Buffer stdout.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>stdout</span>() <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>BufferRedirect</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>iter</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>TempFile</span>::<span class='ident'>shared</span>(<span class='number'>2</span>)).<span class='ident'>into_iter</span>();
-        <span class='kw'>let</span> <span class='ident'>inner</span> <span class='op'>=</span> <span class='ident'>iter</span>.<span class='ident'>next</span>().<span class='ident'>unwrap</span>();
-        <span class='kw'>let</span> <span class='ident'>outer</span> <span class='op'>=</span> <span class='ident'>iter</span>.<span class='ident'>next</span>().<span class='ident'>unwrap</span>();
+        <span class='kw'>let</span> <span class='ident'>tempfile</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>NamedTempFile</span>::<span class='ident'>new</span>());
+        <span class='kw'>let</span> <span class='ident'>inner</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>tempfile</span>.<span class='ident'>reopen</span>());
+        <span class='kw'>let</span> <span class='ident'>outer</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>tempfile</span>.<span class='ident'>reopen</span>());
         <span class='kw'>let</span> <span class='ident'>redir</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>Redirect</span>::<span class='ident'>stdout</span>(<span class='ident'>inner</span>));
         <span class='prelude-val'>Ok</span>(<span class='ident'>BufferRedirect</span> {
             <span class='ident'>redir</span>: <span class='ident'>redir</span>,
@@ -137,9 +139,9 @@
     }
     <span class='doccomment'>/// Buffer stderr.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>stderr</span>() <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>BufferRedirect</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>iter</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>TempFile</span>::<span class='ident'>shared</span>(<span class='number'>2</span>)).<span class='ident'>into_iter</span>();
-        <span class='kw'>let</span> <span class='ident'>inner</span> <span class='op'>=</span> <span class='ident'>iter</span>.<span class='ident'>next</span>().<span class='ident'>unwrap</span>();
-        <span class='kw'>let</span> <span class='ident'>outer</span> <span class='op'>=</span> <span class='ident'>iter</span>.<span class='ident'>next</span>().<span class='ident'>unwrap</span>();
+        <span class='kw'>let</span> <span class='ident'>tempfile</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>NamedTempFile</span>::<span class='ident'>new</span>());
+        <span class='kw'>let</span> <span class='ident'>inner</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>tempfile</span>.<span class='ident'>reopen</span>());
+        <span class='kw'>let</span> <span class='ident'>outer</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>tempfile</span>.<span class='ident'>reopen</span>());
         <span class='kw'>let</span> <span class='ident'>redir</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>Redirect</span>::<span class='ident'>stderr</span>(<span class='ident'>inner</span>));
         <span class='prelude-val'>Ok</span>(<span class='ident'>BufferRedirect</span> {
             <span class='ident'>redir</span>: <span class='ident'>redir</span>,
