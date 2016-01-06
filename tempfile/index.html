@@ -9,6 +9,7 @@
 
     <title>tempfile - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
 
     
@@ -24,10 +25,10 @@
 
     
 
-    <section class="sidebar">
+    <nav class="sidebar">
         
         <p class='location'></p><script>window.sidebarCurrent = {name: 'tempfile', ty: 'mod', relpath: '../'};</script>
-    </section>
+    </nav>
 
     <nav class="sub">
         <form class="search-form js-only">
@@ -53,16 +54,13 @@ automatically deleted.</p>
 between the variants, prefer <code>TempFile</code> unless you either need to know the file&#39;s path or to be
 able to persist it.</p>
 
-<h1 id="differences" class='section-header'><a
-                           href="#differences">Differences</a></h1>
-<h2 id="resource-leaking" class='section-header'><a
-                           href="#resource-leaking">Resource Leaking</a></h2>
+<h1 id='differences' class='section-header'><a href='#differences'>Differences</a></h1>
+<h2 id='resource-leaking' class='section-header'><a href='#resource-leaking'>Resource Leaking</a></h2>
 <p><code>TempFile</code> will (almost) never fail to cleanup temporary files but <code>NamedTempFile</code> will if its
 destructor doesn&#39;t run. This is because <code>TempFile</code> relies on the OS to cleanup the underlying
 file so the file while <code>NamedTempFile</code> relies on its destructor to do so.</p>
 
-<h2 id="security" class='section-header'><a
-                           href="#security">Security</a></h2>
+<h2 id='security' class='section-header'><a href='#security'>Security</a></h2>
 <p>In the presence of pathological temporary file cleaner, relying on file paths is unsafe because
 a temporary file cleaner could delete the temporary file which an attacker could then replace.</p>
 
@@ -92,10 +90,12 @@ rely on file paths.</p>
 
     <section class="footer"></section>
 
-    <div id="help" class="hidden">
+    <aside id="help" class="hidden">
         <div>
+            <h1 class="hidden">Help</h1>
+
             <div class="shortcuts">
-                <h1>Keyboard Shortcuts</h1>
+                <h2>Keyboard Shortcuts</h2>
 
                 <dl>
                     <dt>?</dt>
@@ -112,7 +112,7 @@ rely on file paths.</p>
             </div>
 
             <div class="infos">
-                <h1>Search Tricks</h1>
+                <h2>Search Tricks</h2>
 
                 <p>
                     Prefix searches with a type followed by a colon (e.g.
@@ -132,7 +132,7 @@ rely on file paths.</p>
                 </p>
             </div>
         </div>
-    </div>
+    </aside>
 
     
 
@@ -144,6 +144,6 @@ rely on file paths.</p>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     
-    <script async src="../search-index.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>
