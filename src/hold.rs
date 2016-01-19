@@ -1,5 +1,5 @@
 use std::io::{self, Read, Write};
-use ::BufferRedirect;
+use BufferRedirect;
 
 /// Hold output until dropped. On drop, the held output is sent to the stdout/stderr.
 ///
@@ -36,7 +36,11 @@ impl Drop for Hold {
                 // Ignore errors
                 match from.read(&mut buf) {
                     Ok(0) => break,
-                    Ok(size) => if let Err(_) = to.write_all(&buf[..size]) { break },
+                    Ok(size) => {
+                        if let Err(_) = to.write_all(&buf[..size]) {
+                            break;
+                        }
+                    }
                     Err(_) => break,
                 }
             }

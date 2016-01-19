@@ -1,4 +1,4 @@
-use ::libc;
+use libc;
 
 use std::os::unix::io::{RawFd, AsRawFd};
 use std::io;
@@ -62,7 +62,9 @@ impl RedirectFds {
         // If this ends up panicing, something is seriously wrong. Regardless, we will only end up
         // leaking a single file descriptor so it's not the end of the world.
         if REDIRECT_FLAGS[std_fd as usize].fetch_or(true, Ordering::Relaxed) {
-            unsafe { libc::close(std_fd_dup); }
+            unsafe {
+                libc::close(std_fd_dup);
+            }
             return Err(io::Error::new(io::ErrorKind::AlreadyExists, "Redirect already exists."));
         }
 
@@ -73,7 +75,7 @@ impl RedirectFds {
         };
 
         match unsafe { libc::dup2(file_fd, std_fd) } {
-            // Drop is still correct even if this doesn't succeed. 
+            // Drop is still correct even if this doesn't succeed.
             -1 => Err(io::Error::last_os_error()),
             _ => Ok(fds),
         }
@@ -91,11 +93,18 @@ impl Drop for RedirectFds {
     }
 }
 
-impl<F> Redirect<F> where F: AsRawFd {
+impl<F> Redirect<F>
+    where F: AsRawFd
+{
     fn make(std_fd: RawFd, file: F) -> Result<Self, RedirectError<F>> {
         let fds = match RedirectFds::make(std_fd, file.as_raw_fd()) {
             Ok(fds) => fds,
-            Err(e) => return Err(RedirectError { error: e, file: file})
+            Err(e) => {
+                return Err(RedirectError {
+                    error: e,
+                    file: file,
+                })
+            }
         };
         Ok(Redirect {
             fds: fds,
@@ -116,4 +125,3 @@ impl<F> Redirect<F> where F: AsRawFd {
         self.file
     }
 }
-

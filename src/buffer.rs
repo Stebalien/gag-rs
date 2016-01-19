@@ -30,7 +30,7 @@ impl BufferRedirect {
         let redir = try!(Redirect::stdout(inner));
         Ok(BufferRedirect {
             redir: redir,
-            outer: outer
+            outer: outer,
         })
     }
     /// Buffer stderr.
@@ -41,7 +41,7 @@ impl BufferRedirect {
         let redir = try!(Redirect::stderr(inner));
         Ok(BufferRedirect {
             redir: redir,
-            outer: outer
+            outer: outer,
         })
     }
 
@@ -57,4 +57,3 @@ impl Read for BufferRedirect {
         self.outer.read(buf)
     }
 }
-

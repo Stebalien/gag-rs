@@ -36,7 +36,8 @@
 //! let gag_a = Gag::stdout().unwrap();
 //! let gag_b_result = Gag::stdout();
 //! assert!(gag_b_result.is_err());
-//! assert!(gag_b_result.err().expect("Expected an error").kind() == std::io::ErrorKind::AlreadyExists);
+//! assert_eq!(gag_b_result.err().expect("Expected an error").kind(),
+//!            std::io::ErrorKind::AlreadyExists);
 //!
 //! // However, you can still gag stderr:
 //! let gag_c = Gag::stderr().unwrap();
