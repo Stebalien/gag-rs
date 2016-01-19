@@ -1,7 +1,7 @@
 [package]
 
 name = "gag"
-version = "0.1.8"
+version = "0.1.9"
 authors = ["Steven Allen <steven@stebalien.com>"]
 description = "Gag, redirect, or hold stdout/stderr output. Currently only *nix operating systems are supported."
 
@@ -11,7 +11,7 @@ keywords = ["stdout", "stderr", "stdio", "redirect"]
 license = "MIT"
 
 [dependencies]
-libc = "0.1"
+libc = "0.2"
 tempfile = "2.0"
 
 [dev-dependencies]
