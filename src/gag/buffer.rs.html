@@ -100,7 +100,6 @@
 <span id="57">57</span>
 <span id="58">58</span>
 <span id="59">59</span>
-<span id="60">60</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='self'>self</span>, <span class='ident'>Read</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fs</span>::<span class='ident'>File</span>;
@@ -134,7 +133,7 @@
         <span class='kw'>let</span> <span class='ident'>redir</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>Redirect</span>::<span class='ident'>stdout</span>(<span class='ident'>inner</span>));
         <span class='prelude-val'>Ok</span>(<span class='ident'>BufferRedirect</span> {
             <span class='ident'>redir</span>: <span class='ident'>redir</span>,
-            <span class='ident'>outer</span>: <span class='ident'>outer</span>
+            <span class='ident'>outer</span>: <span class='ident'>outer</span>,
         })
     }
     <span class='doccomment'>/// Buffer stderr.</span>
@@ -145,7 +144,7 @@
         <span class='kw'>let</span> <span class='ident'>redir</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>Redirect</span>::<span class='ident'>stderr</span>(<span class='ident'>inner</span>));
         <span class='prelude-val'>Ok</span>(<span class='ident'>BufferRedirect</span> {
             <span class='ident'>redir</span>: <span class='ident'>redir</span>,
-            <span class='ident'>outer</span>: <span class='ident'>outer</span>
+            <span class='ident'>outer</span>: <span class='ident'>outer</span>,
         })
     }
 
@@ -161,7 +160,6 @@
         <span class='self'>self</span>.<span class='ident'>outer</span>.<span class='ident'>read</span>(<span class='ident'>buf</span>)
     }
 }
-
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

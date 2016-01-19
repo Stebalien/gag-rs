@@ -156,6 +156,7 @@
 <span id="113">113</span>
 <span id="114">114</span>
 <span id="115">115</span>
+<span id="116">116</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Temporarily redirect stdout/stderr.</span>
 <span class='doccomment'>//!</span>
@@ -195,7 +196,8 @@
 <span class='doccomment'>//! let gag_a = Gag::stdout().unwrap();</span>
 <span class='doccomment'>//! let gag_b_result = Gag::stdout();</span>
 <span class='doccomment'>//! assert!(gag_b_result.is_err());</span>
-<span class='doccomment'>//! assert!(gag_b_result.err().expect(&quot;Expected an error&quot;).kind() == std::io::ErrorKind::AlreadyExists);</span>
+<span class='doccomment'>//! assert_eq!(gag_b_result.err().expect(&quot;Expected an error&quot;).kind(),</span>
+<span class='doccomment'>//!            std::io::ErrorKind::AlreadyExists);</span>
 <span class='doccomment'>//!</span>
 <span class='doccomment'>//! // However, you can still gag stderr:</span>
 <span class='doccomment'>//! let gag_c = Gag::stderr().unwrap();</span>
