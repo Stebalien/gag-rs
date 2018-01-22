@@ -9,13 +9,15 @@
 
     <title>gag::Redirect - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc struct">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -26,8 +28,9 @@
     
 
     <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'><a href='index.html'>gag</a></p><script>window.sidebarCurrent = {name: 'Redirect', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct Redirect</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.stdout">stdout</a><a href="#method.stderr">stderr</a><a href="#method.into_inner">into_inner</a></div></div><p class='location'><a href='index.html'>gag</a></p><script>window.sidebarCurrent = {name: 'Redirect', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
     <nav class="sub">
@@ -41,20 +44,23 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>gag</a>::<wbr><a class='struct' href=''>Redirect</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-38' class='srclink' href='../src/gag/redirect.rs.html#43-47' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct Redirect&lt;F&gt; {
-    // some fields omitted
-}</pre><div class='docblock'><p>Redirect stderr/stdout to a file.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;F&gt; <a class='struct' href='../gag/struct.Redirect.html' title='gag::Redirect'>Redirect</a>&lt;F&gt; <span class='where'>where F: <a class='trait' href='https://doc.rust-lang.org/nightly/std/sys/ext/io/trait.AsRawFd.html' title='std::sys::ext::io::AsRawFd'>AsRawFd</a></span></code></h3><div class='impl-items'><h4 id='method.stdout' class='method'><code>fn <a href='#method.stdout' class='fnname'>stdout</a>(file: F) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self, <a class='struct' href='../gag/struct.RedirectError.html' title='gag::RedirectError'>RedirectError</a>&lt;F&gt;&gt;</code></h4>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>gag</a>::<wbr><a class="struct" href=''>Redirect</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/gag/redirect.rs.html#43-47' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Redirect&lt;F&gt; { /* fields omitted */ }</pre><div class='docblock'><p>Redirect stderr/stdout to a file.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl&lt;F&gt; <a class="struct" href="../gag/struct.Redirect.html" title="struct gag::Redirect">Redirect</a>&lt;F&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;F: <a class="trait" href="https://doc.rust-lang.org/nightly/std/sys/unix/ext/io/trait.AsRawFd.html" title="trait std::sys::unix::ext::io::AsRawFd">AsRawFd</a>,&nbsp;</span></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/gag/redirect.rs.html#96-127' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.stdout' class="method"><span id='stdout.v' class='invisible'><code>pub fn <a href='#method.stdout' class='fnname'>stdout</a>(file: F) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;Self, <a class="struct" href="../gag/struct.RedirectError.html" title="struct gag::RedirectError">RedirectError</a>&lt;F&gt;&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/gag/redirect.rs.html#115-117' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Redirect stdout to <code>file</code>.</p>
-</div><h4 id='method.stderr' class='method'><code>fn <a href='#method.stderr' class='fnname'>stderr</a>(file: F) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;Self, <a class='struct' href='../gag/struct.RedirectError.html' title='gag::RedirectError'>RedirectError</a>&lt;F&gt;&gt;</code></h4>
+</div><h4 id='method.stderr' class="method"><span id='stderr.v' class='invisible'><code>pub fn <a href='#method.stderr' class='fnname'>stderr</a>(file: F) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;Self, <a class="struct" href="../gag/struct.RedirectError.html" title="struct gag::RedirectError">RedirectError</a>&lt;F&gt;&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/gag/redirect.rs.html#119-121' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Redirect stderr to <code>file</code>.</p>
-</div><h4 id='method.into_inner' class='method'><code>fn <a href='#method.into_inner' class='fnname'>into_inner</a>(self) -&gt; F</code></h4>
+</div><h4 id='method.into_inner' class="method"><span id='into_inner.v' class='invisible'><code>pub fn <a href='#method.into_inner' class='fnname'>into_inner</a>(self) -&gt; F</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/gag/redirect.rs.html#124-126' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Extract inner file object.</p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
@@ -73,12 +79,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -99,7 +109,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -110,11 +120,8 @@
     <script>
         window.rootPath = "../";
         window.currentCrate = "gag";
-        window.playgroundUrl = "";
     </script>
-    <script src="../jquery.js"></script>
     <script src="../main.js"></script>
-    
     <script defer src="../search-index.js"></script>
 </body>
 </html>

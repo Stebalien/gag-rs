@@ -9,13 +9,15 @@
 
     <title>buffer.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -26,6 +28,7 @@
     
 
     <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
         
         
     </nav>
@@ -41,7 +44,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -100,64 +103,64 @@
 <span id="57">57</span>
 <span id="58">58</span>
 <span id="59">59</span>
-</pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='self'>self</span>, <span class='ident'>Read</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fs</span>::<span class='ident'>File</span>;
+</pre><pre class="rust ">
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::{<span class="self">self</span>, <span class="ident">Read</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fs</span>::<span class="ident">File</span>;
 
-<span class='kw'>use</span> <span class='ident'>redirect</span>::<span class='ident'>Redirect</span>;
-<span class='kw'>use</span> <span class='ident'>tempfile</span>::<span class='ident'>NamedTempFile</span>;
+<span class="kw">use</span> <span class="ident">redirect</span>::<span class="ident">Redirect</span>;
+<span class="kw">use</span> <span class="ident">tempfile</span>::<span class="ident">NamedTempFile</span>;
 
-<span class='doccomment'>/// Buffer output in an in-memory buffer.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BufferRedirect</span> {
-    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
-    <span class='ident'>redir</span>: <span class='ident'>Redirect</span><span class='op'>&lt;</span><span class='ident'>File</span><span class='op'>&gt;</span>,
-    <span class='ident'>outer</span>: <span class='ident'>File</span>,
+<span class="doccomment">/// Buffer output in an in-memory buffer.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">BufferRedirect</span> {
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
+    <span class="ident">redir</span>: <span class="ident">Redirect</span><span class="op">&lt;</span><span class="ident">File</span><span class="op">&gt;</span>,
+    <span class="ident">outer</span>: <span class="ident">File</span>,
 }
 
-<span class='doccomment'>/// An in-memory read-only buffer into which BufferRedirect buffers output.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Buffer</span>(<span class='ident'>File</span>);
+<span class="doccomment">/// An in-memory read-only buffer into which BufferRedirect buffers output.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Buffer</span>(<span class="ident">File</span>);
 
-<span class='kw'>impl</span> <span class='ident'>Read</span> <span class='kw'>for</span> <span class='ident'>Buffer</span> {
-    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-    <span class='kw'>fn</span> <span class='ident'>read</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>buf</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>u8</span>]) <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>read</span>(<span class='ident'>buf</span>)
+<span class="kw">impl</span> <span class="ident">Read</span> <span class="kw">for</span> <span class="ident">Buffer</span> {
+    <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">read</span>(<span class="ident">buf</span>)
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>BufferRedirect</span> {
-    <span class='doccomment'>/// Buffer stdout.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>stdout</span>() <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>BufferRedirect</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>tempfile</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>NamedTempFile</span>::<span class='ident'>new</span>());
-        <span class='kw'>let</span> <span class='ident'>inner</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>tempfile</span>.<span class='ident'>reopen</span>());
-        <span class='kw'>let</span> <span class='ident'>outer</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>tempfile</span>.<span class='ident'>reopen</span>());
-        <span class='kw'>let</span> <span class='ident'>redir</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>Redirect</span>::<span class='ident'>stdout</span>(<span class='ident'>inner</span>));
-        <span class='prelude-val'>Ok</span>(<span class='ident'>BufferRedirect</span> {
-            <span class='ident'>redir</span>: <span class='ident'>redir</span>,
-            <span class='ident'>outer</span>: <span class='ident'>outer</span>,
+<span class="kw">impl</span> <span class="ident">BufferRedirect</span> {
+    <span class="doccomment">/// Buffer stdout.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdout</span>() <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">BufferRedirect</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">tempfile</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">NamedTempFile</span>::<span class="ident">new</span>());
+        <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">tempfile</span>.<span class="ident">reopen</span>());
+        <span class="kw">let</span> <span class="ident">outer</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">tempfile</span>.<span class="ident">reopen</span>());
+        <span class="kw">let</span> <span class="ident">redir</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">Redirect</span>::<span class="ident">stdout</span>(<span class="ident">inner</span>));
+        <span class="prelude-val">Ok</span>(<span class="ident">BufferRedirect</span> {
+            <span class="ident">redir</span>: <span class="ident">redir</span>,
+            <span class="ident">outer</span>: <span class="ident">outer</span>,
         })
     }
-    <span class='doccomment'>/// Buffer stderr.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>stderr</span>() <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>BufferRedirect</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>tempfile</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>NamedTempFile</span>::<span class='ident'>new</span>());
-        <span class='kw'>let</span> <span class='ident'>inner</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>tempfile</span>.<span class='ident'>reopen</span>());
-        <span class='kw'>let</span> <span class='ident'>outer</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>tempfile</span>.<span class='ident'>reopen</span>());
-        <span class='kw'>let</span> <span class='ident'>redir</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>Redirect</span>::<span class='ident'>stderr</span>(<span class='ident'>inner</span>));
-        <span class='prelude-val'>Ok</span>(<span class='ident'>BufferRedirect</span> {
-            <span class='ident'>redir</span>: <span class='ident'>redir</span>,
-            <span class='ident'>outer</span>: <span class='ident'>outer</span>,
+    <span class="doccomment">/// Buffer stderr.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stderr</span>() <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">BufferRedirect</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">tempfile</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">NamedTempFile</span>::<span class="ident">new</span>());
+        <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">tempfile</span>.<span class="ident">reopen</span>());
+        <span class="kw">let</span> <span class="ident">outer</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">tempfile</span>.<span class="ident">reopen</span>());
+        <span class="kw">let</span> <span class="ident">redir</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">Redirect</span>::<span class="ident">stderr</span>(<span class="ident">inner</span>));
+        <span class="prelude-val">Ok</span>(<span class="ident">BufferRedirect</span> {
+            <span class="ident">redir</span>: <span class="ident">redir</span>,
+            <span class="ident">outer</span>: <span class="ident">outer</span>,
         })
     }
 
-    <span class='doccomment'>/// Extract the inner buffer and stop redirecting output.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>into_inner</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Buffer</span> {
-        <span class='ident'>Buffer</span>(<span class='self'>self</span>.<span class='ident'>outer</span>)
+    <span class="doccomment">/// Extract the inner buffer and stop redirecting output.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_inner</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Buffer</span> {
+        <span class="ident">Buffer</span>(<span class="self">self</span>.<span class="ident">outer</span>)
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>Read</span> <span class='kw'>for</span> <span class='ident'>BufferRedirect</span> {
-    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
-    <span class='kw'>fn</span> <span class='ident'>read</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>buf</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>u8</span>]) <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>outer</span>.<span class='ident'>read</span>(<span class='ident'>buf</span>)
+<span class="kw">impl</span> <span class="ident">Read</span> <span class="kw">for</span> <span class="ident">BufferRedirect</span> {
+    <span class="attribute">#[<span class="ident">inline</span>(<span class="ident">always</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">outer</span>.<span class="ident">read</span>(<span class="ident">buf</span>)
     }
 }
 </pre>
@@ -178,12 +181,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -204,7 +211,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -215,11 +222,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "gag";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

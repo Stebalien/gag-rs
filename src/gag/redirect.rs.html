@@ -9,13 +9,15 @@
 
     <title>redirect.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -26,6 +28,7 @@
     
 
     <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
         
         
     </nav>
@@ -41,7 +44,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -168,132 +171,132 @@
 <span id="125">125</span>
 <span id="126">126</span>
 <span id="127">127</span>
-</pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>libc</span>;
+</pre><pre class="rust ">
+<span class="kw">use</span> <span class="ident">libc</span>;
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>os</span>::<span class='ident'>unix</span>::<span class='ident'>io</span>::{<span class='ident'>RawFd</span>, <span class='ident'>AsRawFd</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>atomic</span>::{<span class='ident'>Ordering</span>, <span class='ident'>AtomicBool</span>, <span class='ident'>ATOMIC_BOOL_INIT</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>any</span>::<span class='ident'>Any</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">os</span>::<span class="ident">unix</span>::<span class="ident">io</span>::{<span class="ident">RawFd</span>, <span class="ident">AsRawFd</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">atomic</span>::{<span class="ident">Ordering</span>, <span class="ident">AtomicBool</span>, <span class="ident">ATOMIC_BOOL_INIT</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">any</span>::<span class="ident">Any</span>;
 
-<span class='kw'>static</span> <span class='ident'>REDIRECT_FLAGS</span>: [<span class='ident'>AtomicBool</span>; <span class='number'>3</span>] <span class='op'>=</span> [<span class='ident'>ATOMIC_BOOL_INIT</span>, <span class='ident'>ATOMIC_BOOL_INIT</span>, <span class='ident'>ATOMIC_BOOL_INIT</span>];
+<span class="kw">static</span> <span class="ident">REDIRECT_FLAGS</span>: [<span class="ident">AtomicBool</span>; <span class="number">3</span>] <span class="op">=</span> [<span class="ident">ATOMIC_BOOL_INIT</span>, <span class="ident">ATOMIC_BOOL_INIT</span>, <span class="ident">ATOMIC_BOOL_INIT</span>];
 
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> {
-    <span class='kw'>pub</span> <span class='ident'>error</span>: <span class='ident'>io</span>::<span class='ident'>Error</span>,
-    <span class='kw'>pub</span> <span class='ident'>file</span>: <span class='ident'>F</span>,
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RedirectError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="ident">error</span>: <span class="ident">io</span>::<span class="ident">Error</span>,
+    <span class="kw">pub</span> <span class="ident">file</span>: <span class="ident">F</span>,
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;&gt;</span> <span class='kw'>for</span> <span class='ident'>io</span>::<span class='ident'>Error</span> {
-    <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>err</span>: <span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='ident'>Error</span> {
-        <span class='ident'>err</span>.<span class='ident'>error</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">RedirectError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;&gt;</span> <span class="kw">for</span> <span class="ident">io</span>::<span class="ident">Error</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">RedirectError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="ident">Error</span> {
+        <span class="ident">err</span>.<span class="ident">error</span>
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>F</span>: <span class='ident'>Any</span><span class='op'>&gt;</span> ::<span class='ident'>std</span>::<span class='ident'>error</span>::<span class='ident'>Error</span> <span class='kw'>for</span> <span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>description</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='self'>self</span>.<span class='ident'>error</span>.<span class='ident'>description</span>()
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">F</span>: <span class="ident">Any</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">for</span> <span class="ident">RedirectError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="self">self</span>.<span class="ident">error</span>.<span class="ident">description</span>()
     }
-    <span class='kw'>fn</span> <span class='ident'>cause</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span>::<span class='ident'>std</span>::<span class='ident'>error</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
-        <span class='prelude-val'>Some</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>error</span>)
-    }
-}
-
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> ::<span class='ident'>std</span>::<span class='ident'>fmt</span>::<span class='ident'>Display</span> <span class='kw'>for</span> <span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>fmt</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> ::<span class='ident'>std</span>::<span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ::<span class='ident'>std</span>::<span class='ident'>fmt</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>error</span>.<span class='ident'>fmt</span>(<span class='ident'>fmt</span>)
+    <span class="kw">fn</span> <span class="ident">cause</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">error</span>)
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> ::<span class='ident'>std</span>::<span class='ident'>fmt</span>::<span class='ident'>Debug</span> <span class='kw'>for</span> <span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>fmt</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> ::<span class='ident'>std</span>::<span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), ::<span class='ident'>std</span>::<span class='ident'>fmt</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>error</span>.<span class='ident'>fmt</span>(<span class='ident'>fmt</span>)
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">RedirectError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">error</span>.<span class="ident">fmt</span>(<span class="ident">fmt</span>)
     }
 }
 
-<span class='doccomment'>/// Redirect stderr/stdout to a file.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Redirect</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> {
-    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
-    <span class='ident'>fds</span>: <span class='ident'>RedirectFds</span>,
-    <span class='ident'>file</span>: <span class='ident'>F</span>,
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Debug</span> <span class="kw">for</span> <span class="ident">RedirectError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">fmt</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), ::<span class="ident">std</span>::<span class="ident">fmt</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">error</span>.<span class="ident">fmt</span>(<span class="ident">fmt</span>)
+    }
 }
 
-<span class='comment'>// Separate struct so we can destruct the redirect and drop the file descriptors.</span>
-<span class='kw'>struct</span> <span class='ident'>RedirectFds</span> {
-    <span class='ident'>std_fd</span>: <span class='ident'>RawFd</span>,
-    <span class='ident'>std_fd_dup</span>: <span class='ident'>RawFd</span>,
+<span class="doccomment">/// Redirect stderr/stdout to a file.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Redirect</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> {
+    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
+    <span class="ident">fds</span>: <span class="ident">RedirectFds</span>,
+    <span class="ident">file</span>: <span class="ident">F</span>,
 }
 
-<span class='kw'>impl</span> <span class='ident'>RedirectFds</span> {
-    <span class='kw'>fn</span> <span class='ident'>make</span>(<span class='ident'>std_fd</span>: <span class='ident'>RawFd</span>, <span class='ident'>file_fd</span>: <span class='ident'>RawFd</span>) <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>RedirectFds</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>std_fd_dup</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>libc</span>::<span class='ident'>dup</span>(<span class='ident'>std_fd</span>) };
-        <span class='kw'>if</span> <span class='ident'>std_fd_dup</span> <span class='op'>&lt;</span> <span class='number'>0</span> {
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>io</span>::<span class='ident'>Error</span>::<span class='ident'>last_os_error</span>());
+<span class="comment">// Separate struct so we can destruct the redirect and drop the file descriptors.</span>
+<span class="kw">struct</span> <span class="ident">RedirectFds</span> {
+    <span class="ident">std_fd</span>: <span class="ident">RawFd</span>,
+    <span class="ident">std_fd_dup</span>: <span class="ident">RawFd</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">RedirectFds</span> {
+    <span class="kw">fn</span> <span class="ident">make</span>(<span class="ident">std_fd</span>: <span class="ident">RawFd</span>, <span class="ident">file_fd</span>: <span class="ident">RawFd</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RedirectFds</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">std_fd_dup</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">libc</span>::<span class="ident">dup</span>(<span class="ident">std_fd</span>) };
+        <span class="kw">if</span> <span class="ident">std_fd_dup</span> <span class="op">&lt;</span> <span class="number">0</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">last_os_error</span>());
         }
 
-        <span class='comment'>// If this ends up panicing, something is seriously wrong. Regardless, we will only end up</span>
-        <span class='comment'>// leaking a single file descriptor so it&#39;s not the end of the world.</span>
-        <span class='kw'>if</span> <span class='ident'>REDIRECT_FLAGS</span>[<span class='ident'>std_fd</span> <span class='kw'>as</span> <span class='ident'>usize</span>].<span class='ident'>fetch_or</span>(<span class='boolval'>true</span>, <span class='ident'>Ordering</span>::<span class='ident'>Relaxed</span>) {
-            <span class='kw'>unsafe</span> {
-                <span class='ident'>libc</span>::<span class='ident'>close</span>(<span class='ident'>std_fd_dup</span>);
+        <span class="comment">// If this ends up panicing, something is seriously wrong. Regardless, we will only end up</span>
+        <span class="comment">// leaking a single file descriptor so it&#39;s not the end of the world.</span>
+        <span class="kw">if</span> <span class="ident">REDIRECT_FLAGS</span>[<span class="ident">std_fd</span> <span class="kw">as</span> <span class="ident">usize</span>].<span class="ident">fetch_or</span>(<span class="bool-val">true</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>) {
+            <span class="kw">unsafe</span> {
+                <span class="ident">libc</span>::<span class="ident">close</span>(<span class="ident">std_fd_dup</span>);
             }
-            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>io</span>::<span class='ident'>Error</span>::<span class='ident'>new</span>(<span class='ident'>io</span>::<span class='ident'>ErrorKind</span>::<span class='ident'>AlreadyExists</span>, <span class='string'>&quot;Redirect already exists.&quot;</span>));
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">AlreadyExists</span>, <span class="string">&quot;Redirect already exists.&quot;</span>));
         }
 
-        <span class='comment'>// Dropping this will close std_fd_dup</span>
-        <span class='kw'>let</span> <span class='ident'>fds</span> <span class='op'>=</span> <span class='ident'>RedirectFds</span> {
-            <span class='ident'>std_fd</span>: <span class='ident'>std_fd</span>,
-            <span class='ident'>std_fd_dup</span>: <span class='ident'>std_fd_dup</span> <span class='kw'>as</span> <span class='ident'>RawFd</span>,
+        <span class="comment">// Dropping this will close std_fd_dup</span>
+        <span class="kw">let</span> <span class="ident">fds</span> <span class="op">=</span> <span class="ident">RedirectFds</span> {
+            <span class="ident">std_fd</span>: <span class="ident">std_fd</span>,
+            <span class="ident">std_fd_dup</span>: <span class="ident">std_fd_dup</span> <span class="kw">as</span> <span class="ident">RawFd</span>,
         };
 
-        <span class='kw'>match</span> <span class='kw'>unsafe</span> { <span class='ident'>libc</span>::<span class='ident'>dup2</span>(<span class='ident'>file_fd</span>, <span class='ident'>std_fd</span>) } {
-            <span class='comment'>// Drop is still correct even if this doesn&#39;t succeed.</span>
-            <span class='op'>-</span><span class='number'>1</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>io</span>::<span class='ident'>Error</span>::<span class='ident'>last_os_error</span>()),
-            _ <span class='op'>=&gt;</span> <span class='prelude-val'>Ok</span>(<span class='ident'>fds</span>),
+        <span class="kw">match</span> <span class="kw">unsafe</span> { <span class="ident">libc</span>::<span class="ident">dup2</span>(<span class="ident">file_fd</span>, <span class="ident">std_fd</span>) } {
+            <span class="comment">// Drop is still correct even if this doesn&#39;t succeed.</span>
+            <span class="op">-</span><span class="number">1</span> <span class="op">=&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">last_os_error</span>()),
+            _ <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">fds</span>),
         }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>RedirectFds</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='comment'>// Check for errors?</span>
-            <span class='ident'>libc</span>::<span class='ident'>dup2</span>(<span class='self'>self</span>.<span class='ident'>std_fd_dup</span>, <span class='self'>self</span>.<span class='ident'>std_fd</span>);
-            <span class='ident'>libc</span>::<span class='ident'>close</span>(<span class='self'>self</span>.<span class='ident'>std_fd_dup</span>);
-            <span class='ident'>REDIRECT_FLAGS</span>[<span class='self'>self</span>.<span class='ident'>std_fd</span> <span class='kw'>as</span> <span class='ident'>usize</span>].<span class='ident'>store</span>(<span class='boolval'>false</span>, <span class='ident'>Ordering</span>::<span class='ident'>Relaxed</span>);
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">RedirectFds</span> {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="comment">// Check for errors?</span>
+            <span class="ident">libc</span>::<span class="ident">dup2</span>(<span class="self">self</span>.<span class="ident">std_fd_dup</span>, <span class="self">self</span>.<span class="ident">std_fd</span>);
+            <span class="ident">libc</span>::<span class="ident">close</span>(<span class="self">self</span>.<span class="ident">std_fd_dup</span>);
+            <span class="ident">REDIRECT_FLAGS</span>[<span class="self">self</span>.<span class="ident">std_fd</span> <span class="kw">as</span> <span class="ident">usize</span>].<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering</span>::<span class="ident">Relaxed</span>);
         }
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span> <span class='ident'>Redirect</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>F</span>: <span class='ident'>AsRawFd</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span> <span class="ident">Redirect</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">F</span>: <span class="ident">AsRawFd</span>
 {
-    <span class='kw'>fn</span> <span class='ident'>make</span>(<span class='ident'>std_fd</span>: <span class='ident'>RawFd</span>, <span class='ident'>file</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>fds</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>RedirectFds</span>::<span class='ident'>make</span>(<span class='ident'>std_fd</span>, <span class='ident'>file</span>.<span class='ident'>as_raw_fd</span>()) {
-            <span class='prelude-val'>Ok</span>(<span class='ident'>fds</span>) <span class='op'>=&gt;</span> <span class='ident'>fds</span>,
-            <span class='prelude-val'>Err</span>(<span class='ident'>e</span>) <span class='op'>=&gt;</span> {
-                <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>RedirectError</span> {
-                    <span class='ident'>error</span>: <span class='ident'>e</span>,
-                    <span class='ident'>file</span>: <span class='ident'>file</span>,
+    <span class="kw">fn</span> <span class="ident">make</span>(<span class="ident">std_fd</span>: <span class="ident">RawFd</span>, <span class="ident">file</span>: <span class="ident">F</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RedirectError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;&gt;</span> {
+        <span class="kw">let</span> <span class="ident">fds</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">RedirectFds</span>::<span class="ident">make</span>(<span class="ident">std_fd</span>, <span class="ident">file</span>.<span class="ident">as_raw_fd</span>()) {
+            <span class="prelude-val">Ok</span>(<span class="ident">fds</span>) <span class="op">=&gt;</span> <span class="ident">fds</span>,
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">RedirectError</span> {
+                    <span class="ident">error</span>: <span class="ident">e</span>,
+                    <span class="ident">file</span>: <span class="ident">file</span>,
                 })
             }
         };
-        <span class='prelude-val'>Ok</span>(<span class='ident'>Redirect</span> {
-            <span class='ident'>fds</span>: <span class='ident'>fds</span>,
-            <span class='ident'>file</span>: <span class='ident'>file</span>,
+        <span class="prelude-val">Ok</span>(<span class="ident">Redirect</span> {
+            <span class="ident">fds</span>: <span class="ident">fds</span>,
+            <span class="ident">file</span>: <span class="ident">file</span>,
         })
     }
-    <span class='doccomment'>/// Redirect stdout to `file`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>stdout</span>(<span class='ident'>file</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;&gt;</span> {
-        <span class='ident'>Redirect</span>::<span class='ident'>make</span>(<span class='ident'>libc</span>::<span class='ident'>STDOUT_FILENO</span>, <span class='ident'>file</span>)
+    <span class="doccomment">/// Redirect stdout to `file`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stdout</span>(<span class="ident">file</span>: <span class="ident">F</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RedirectError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;&gt;</span> {
+        <span class="ident">Redirect</span>::<span class="ident">make</span>(<span class="ident">libc</span>::<span class="ident">STDOUT_FILENO</span>, <span class="ident">file</span>)
     }
-    <span class='doccomment'>/// Redirect stderr to `file`.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>stderr</span>(<span class='ident'>file</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw'>Self</span>, <span class='ident'>RedirectError</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;&gt;</span> {
-        <span class='ident'>Redirect</span>::<span class='ident'>make</span>(<span class='ident'>libc</span>::<span class='ident'>STDERR_FILENO</span>, <span class='ident'>file</span>)
+    <span class="doccomment">/// Redirect stderr to `file`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stderr</span>(<span class="ident">file</span>: <span class="ident">F</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">RedirectError</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;&gt;</span> {
+        <span class="ident">Redirect</span>::<span class="ident">make</span>(<span class="ident">libc</span>::<span class="ident">STDERR_FILENO</span>, <span class="ident">file</span>)
     }
 
-    <span class='doccomment'>/// Extract inner file object.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>into_inner</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>F</span> {
-        <span class='self'>self</span>.<span class='ident'>file</span>
+    <span class="doccomment">/// Extract inner file object.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_inner</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">F</span> {
+        <span class="self">self</span>.<span class="ident">file</span>
     }
 }
 </pre>
@@ -314,12 +317,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -340,7 +347,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -351,11 +358,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "gag";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
     <script defer src="../../search-index.js"></script>
 </body>
 </html>
