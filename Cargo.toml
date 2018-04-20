@@ -5,7 +5,7 @@ version = "0.1.9"
 authors = ["Steven Allen <steven@stebalien.com>"]
 description = "Gag, redirect, or hold stdout/stderr output. Currently only *nix operating systems are supported."
 
-documentation = "https://stebalien.github.io/gag-rs/gag/"
+documentation = "https://docs.rs/gag/"
 repository = "https://github.com/Stebalien/gag-rs"
 keywords = ["stdout", "stderr", "stdio", "redirect"]
 license = "MIT"
