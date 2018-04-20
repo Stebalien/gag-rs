@@ -105,12 +105,12 @@
 extern crate libc;
 extern crate tempfile;
 
-mod redirect;
-mod gag;
 mod buffer;
+mod gag;
 mod hold;
+mod redirect;
 
+pub use buffer::{Buffer, BufferRedirect};
 pub use gag::Gag;
-pub use redirect::{Redirect, RedirectError};
-pub use buffer::{BufferRedirect, Buffer};
 pub use hold::Hold;
+pub use redirect::{Redirect, RedirectError};

@@ -1,9 +1,9 @@
 use libc;
 
-use std::os::unix::io::{RawFd, AsRawFd};
-use std::io;
-use std::sync::atomic::{Ordering, AtomicBool, ATOMIC_BOOL_INIT};
 use std::any::Any;
+use std::io;
+use std::os::unix::io::{AsRawFd, RawFd};
+use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
 
 static REDIRECT_FLAGS: [AtomicBool; 3] = [ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT];
 
@@ -65,14 +65,14 @@ impl RedirectFds {
             unsafe {
                 libc::close(std_fd_dup);
             }
-            return Err(io::Error::new(io::ErrorKind::AlreadyExists, "Redirect already exists."));
+            return Err(io::Error::new(
+                io::ErrorKind::AlreadyExists,
+                "Redirect already exists.",
+            ));
         }
 
         // Dropping this will close std_fd_dup
-        let fds = RedirectFds {
-            std_fd: std_fd,
-            std_fd_dup: std_fd_dup as RawFd,
-        };
+        let fds = RedirectFds { std_fd, std_fd_dup };
 
         match unsafe { libc::dup2(file_fd, std_fd) } {
             // Drop is still correct even if this doesn't succeed.
@@ -94,22 +94,15 @@ impl Drop for RedirectFds {
 }
 
 impl<F> Redirect<F>
-    where F: AsRawFd
+where
+    F: AsRawFd,
 {
     fn make(std_fd: RawFd, file: F) -> Result<Self, RedirectError<F>> {
         let fds = match RedirectFds::make(std_fd, file.as_raw_fd()) {
             Ok(fds) => fds,
-            Err(e) => {
-                return Err(RedirectError {
-                    error: e,
-                    file: file,
-                })
-            }
+            Err(error) => return Err(RedirectError { error, file }),
         };
-        Ok(Redirect {
-            fds: fds,
-            file: file,
-        })
+        Ok(Redirect { fds, file })
     }
     /// Redirect stdout to `file`.
     pub fn stdout(file: F) -> Result<Self, RedirectError<F>> {

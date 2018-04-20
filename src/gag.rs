@@ -1,7 +1,7 @@
-use std::fs::OpenOptions;
-use std::fs::File;
-use std::io;
 use redirect::Redirect;
+use std::fs::File;
+use std::fs::OpenOptions;
+use std::io;
 
 // Helper function for opening /dev/null
 fn null() -> io::Result<File> {

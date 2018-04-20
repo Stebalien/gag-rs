@@ -1,5 +1,5 @@
-use std::io::{self, Read};
 use std::fs::File;
+use std::io::{self, Read};
 
 use redirect::Redirect;
 use tempfile::NamedTempFile;
@@ -28,10 +28,7 @@ impl BufferRedirect {
         let inner = try!(tempfile.reopen());
         let outer = try!(tempfile.reopen());
         let redir = try!(Redirect::stdout(inner));
-        Ok(BufferRedirect {
-            redir: redir,
-            outer: outer,
-        })
+        Ok(BufferRedirect { redir, outer })
     }
     /// Buffer stderr.
     pub fn stderr() -> io::Result<BufferRedirect> {
@@ -39,10 +36,7 @@ impl BufferRedirect {
         let inner = try!(tempfile.reopen());
         let outer = try!(tempfile.reopen());
         let redir = try!(Redirect::stderr(inner));
-        Ok(BufferRedirect {
-            redir: redir,
-            outer: outer,
-        })
+        Ok(BufferRedirect { redir, outer })
     }
 
     /// Extract the inner buffer and stop redirecting output.

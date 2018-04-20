@@ -37,7 +37,7 @@ impl Drop for Hold {
                 match from.read(&mut buf) {
                     Ok(0) => break,
                     Ok(size) => {
-                        if let Err(_) = to.write_all(&buf[..size]) {
+                        if to.write_all(&buf[..size]).is_err() {
                             break;
                         }
                     }
