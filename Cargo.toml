@@ -12,7 +12,7 @@ license = "MIT"
 
 [dependencies]
 libc = "0.2"
-tempfile = "2.0"
+tempfile = "3.0"
 
 [dev-dependencies]
-lazy_static = "*"
+lazy_static = "1"
