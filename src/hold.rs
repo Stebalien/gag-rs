@@ -13,7 +13,7 @@ impl Hold {
     /// Hold stderr output.
     pub fn stderr() -> io::Result<Hold> {
         Ok(Hold {
-            buf_redir: Some(try!(BufferRedirect::stderr())),
+            buf_redir: Some(BufferRedirect::stderr()?),
             is_stdout: false,
         })
     }
@@ -21,7 +21,7 @@ impl Hold {
     /// Hold stdout output.
     pub fn stdout() -> io::Result<Hold> {
         Ok(Hold {
-            buf_redir: Some(try!(BufferRedirect::stdout())),
+            buf_redir: Some(BufferRedirect::stdout()?),
             is_stdout: true,
         })
     }

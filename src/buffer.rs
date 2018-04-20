@@ -24,18 +24,18 @@ impl Read for Buffer {
 impl BufferRedirect {
     /// Buffer stdout.
     pub fn stdout() -> io::Result<BufferRedirect> {
-        let tempfile = try!(NamedTempFile::new());
-        let inner = try!(tempfile.reopen());
-        let outer = try!(tempfile.reopen());
-        let redir = try!(Redirect::stdout(inner));
+        let tempfile = NamedTempFile::new()?;
+        let inner = tempfile.reopen()?;
+        let outer = tempfile.reopen()?;
+        let redir = Redirect::stdout(inner)?;
         Ok(BufferRedirect { redir, outer })
     }
     /// Buffer stderr.
     pub fn stderr() -> io::Result<BufferRedirect> {
-        let tempfile = try!(NamedTempFile::new());
-        let inner = try!(tempfile.reopen());
-        let outer = try!(tempfile.reopen());
-        let redir = try!(Redirect::stderr(inner));
+        let tempfile = NamedTempFile::new()?;
+        let inner = tempfile.reopen()?;
+        let outer = tempfile.reopen()?;
+        let redir = Redirect::stderr(inner)?;
         Ok(BufferRedirect { redir, outer })
     }
 
