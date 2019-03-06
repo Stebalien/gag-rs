@@ -3,9 +3,13 @@ use libc;
 use std::any::Any;
 use std::io;
 use std::os::unix::io::{AsRawFd, RawFd};
-use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
+use std::sync::atomic::{AtomicBool, Ordering};
 
-static REDIRECT_FLAGS: [AtomicBool; 3] = [ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT, ATOMIC_BOOL_INIT];
+static REDIRECT_FLAGS: [AtomicBool; 3] = [
+    AtomicBool::new(false),
+    AtomicBool::new(false),
+    AtomicBool::new(false),
+];
 
 pub struct RedirectError<F> {
     pub error: io::Error,
