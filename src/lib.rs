@@ -102,15 +102,30 @@
 //! println!("second");
 //! drop(hold); // printing happens here!
 //! ```
+#[cfg(unix)]
 extern crate libc;
+#[cfg(unix)]
 extern crate tempfile;
 
+#[cfg(unix)]
 mod buffer;
+#[cfg(unix)]
 mod gag;
+#[cfg(unix)]
 mod hold;
+#[cfg(unix)]
 mod redirect;
 
+#[cfg(unix)]
 pub use buffer::{Buffer, BufferRedirect};
+#[cfg(unix)]
 pub use gag::Gag;
+#[cfg(unix)]
 pub use hold::Hold;
+#[cfg(unix)]
 pub use redirect::{Redirect, RedirectError};
+
+#[cfg(windows)]
+extern crate winapi;
+#[cfg(windows)]
+pub mod windows;

@@ -14,5 +14,8 @@ license = "MIT"
 libc = "0.2"
 tempfile = "3.0"
 
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "*", features = ["winbase", "wincon", "processenv", "handleapi", "namedpipeapi"] }
+
 [dev-dependencies]
 lazy_static = "1"
