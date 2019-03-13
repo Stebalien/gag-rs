@@ -1,3 +1,5 @@
+#![cfg(unix)]
+
 extern crate gag;
 #[macro_use]
 extern crate lazy_static;
