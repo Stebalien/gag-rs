@@ -104,6 +104,10 @@ impl<Io> Gag<Io> {
 	}
 }
 
+/// We can say `Gag` is safe as the `HANDLE`s are meant to last until we close them (with `CloseHandle`).
+/// As this is done on the `drop` of `Gag`, the handles should live for `Gag`s lifetime.
+unsafe impl<Io> Send for Gag<Io> {}
+
 impl<Io> Drop for Gag<Io> {
 	fn drop(&mut self) {
 		// failures could potentially leak memory, but should be okay with as they are only HANDLE size.
