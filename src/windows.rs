@@ -78,7 +78,7 @@ pub fn stdout() -> io::Result<Gag<io::Stdout>> {
 /// drop(gag);
 /// eprintln!("and this");
 /// ```
-pub fn stderr() -> io::Result<Gag<io::Stdout>> {
+pub fn stderr() -> io::Result<Gag<io::Stderr>> {
     Gag::redirect(STD_ERROR_HANDLE)
 }
 
