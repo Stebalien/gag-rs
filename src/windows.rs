@@ -44,11 +44,6 @@ use winapi::um::{
     winnt::HANDLE,
 };
 
-/// Gag type -- stdout.
-pub struct Stdout;
-/// Gag type -- stderr.
-pub struct Stderr;
-
 /// Holds the gag.
 /// Once dropped will return output to the original device.
 pub struct Gag<Io> {
@@ -69,7 +64,7 @@ pub struct Gag<Io> {
 /// drop(gag);
 /// println!("and this");
 /// ```
-pub fn stdout() -> io::Result<Gag<Stdout>> {
+pub fn stdout() -> io::Result<Gag<io::Stdout>> {
     Gag::redirect(STD_OUTPUT_HANDLE)
 }
 
@@ -83,7 +78,7 @@ pub fn stdout() -> io::Result<Gag<Stdout>> {
 /// drop(gag);
 /// eprintln!("and this");
 /// ```
-pub fn stderr() -> io::Result<Gag<Stderr>> {
+pub fn stderr() -> io::Result<Gag<io::Stdout>> {
     Gag::redirect(STD_ERROR_HANDLE)
 }
 
@@ -128,8 +123,8 @@ impl<Io> Drop for Gag<Io> {
 impl<Io> io::Read for Gag<Io> {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         if !has_bytes(self.read_handle)? {
-			return Ok(0);
-		}
+            return Ok(0);
+        }
 
         let buf_len: DWORD = buf.len() as DWORD;
         let mut bytes_read: DWORD = 0;
@@ -199,7 +194,7 @@ fn has_bytes(handle: HANDLE) -> io::Result<bool> {
             NULL as LPDWORD,
         )
     };
-	
+
     if result == 0 {
         return Err(io::Error::last_os_error());
     }
