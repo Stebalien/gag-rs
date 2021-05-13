@@ -16,7 +16,6 @@ Documentation (with examples): https://docs.rs/gag/
 # TODO:
 
 * General:
-  * Windows support.
   * Better error handling?
 * Redirect:
   * Be generic over references. That is, accept both a reference to an AsRawFd or
