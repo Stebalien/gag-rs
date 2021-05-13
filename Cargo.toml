@@ -11,8 +11,8 @@ keywords = ["stdout", "stderr", "stdio", "redirect"]
 license = "MIT"
 
 [dependencies]
-libc = "0.2"
 tempfile = "3.0"
+filedescriptor = { version = "0.7.3", git = "https://github.com/robinbernon/wezterm", branch = "AddingStdRedirects" }
 
 [dev-dependencies]
 lazy_static = "1"

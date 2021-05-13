@@ -102,7 +102,7 @@
 //! println!("second");
 //! drop(hold); // printing happens here!
 //! ```
-extern crate libc;
+extern crate filedescriptor;
 extern crate tempfile;
 
 mod buffer;
