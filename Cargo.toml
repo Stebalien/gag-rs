@@ -16,3 +16,4 @@ filedescriptor = { version = "0.7.3", git = "https://github.com/robinbernon/wezt
 
 [dev-dependencies]
 lazy_static = "1"
+dirs = "3.0.2"

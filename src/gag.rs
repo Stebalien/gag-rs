@@ -3,9 +3,13 @@ use std::fs::File;
 use std::fs::OpenOptions;
 use std::io;
 
-// Helper function for opening /dev/null
+// Helper function for opening /dev/null in unix or NUL on windows
 fn null() -> io::Result<File> {
-    OpenOptions::new().write(true).open("/dev/null")
+    #[cfg(windows)]
+    return OpenOptions::new().write(true).open("NUL");
+
+    #[cfg(unix)]
+    return OpenOptions::new().write(true).open("/dev/null");
 }
 
 /// Discard output until dropped.
