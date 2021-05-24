@@ -12,7 +12,7 @@ license = "MIT"
 
 [dependencies]
 tempfile = "3.0"
-filedescriptor = { version = "0.7.3", git = "https://github.com/robinbernon/wezterm", branch = "AddingStdRedirects" }
+filedescriptor = "0.8.0"
 
 [dev-dependencies]
 lazy_static = "1"

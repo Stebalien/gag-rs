@@ -65,7 +65,7 @@ impl RedirectFds {
         }
 
         let std_fd = FileDescriptor::redirect_stdio(file, stdio)
-            .map_err(|error| error.downcast::<io::Error>().unwrap())?;
+            .map_err(|error| io::Error::new(io::ErrorKind::Other, error.to_string()))?;
 
         // Dropping this will redirect stdio back to original std_fd
         Ok(RedirectFds { std_fd, stdio })
