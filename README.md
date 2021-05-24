@@ -6,12 +6,12 @@ Documentation (with examples): https://docs.rs/gag/
 
 # Limitations
 
-* Doesn't work on windows. Patches welcome.
 * Won't work if something else has called `std::io::set_print` (currently
   unstable). Unfortunately, this function doesn't actually redirect the stdio
   file descriptor, it just replaces the `std::io::stdout` writer.
 * Won't work in rust test cases. The rust test cases use `std::io::set_print` to
-  redirect stdout.
+  redirect stdout. You can get around this though by using the `--nocapture` argument
+  when running your tests.
 
 # TODO:
 
