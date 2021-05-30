@@ -11,8 +11,9 @@ keywords = ["stdout", "stderr", "stdio", "redirect"]
 license = "MIT"
 
 [dependencies]
-libc = "0.2"
 tempfile = "3.0"
+filedescriptor = "0.8.0"
 
 [dev-dependencies]
 lazy_static = "1"
+dirs = "3.0.2"

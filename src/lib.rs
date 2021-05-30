@@ -46,9 +46,24 @@
 //! If you don't want to throw away stdout, you can write it to a file:
 //!
 //! ```
+//! # extern crate dirs;
 //! use std::fs::OpenOptions;
 //! use std::io::{Read, Write, Seek, SeekFrom};
 //! use gag::Redirect;
+//! use dirs::data_local_dir;
+//!
+//! fn get_temp_filepath() -> String {
+//!     #[cfg(windows)]
+//!     return data_local_dir()
+//!         .unwrap()
+//!         .join("Temp")
+//!         .join("my_log.log")
+//!         .to_string_lossy()
+//!         .into();
+//!
+//!     #[cfg(unix)]
+//!     return "/tmp/my_log.log".into();
+//! }
 //!
 //! println!("Displayed");
 //!
@@ -58,7 +73,7 @@
 //!     .read(true)
 //!     .create(true)
 //!     .write(true)
-//!     .open("/tmp/my_log.log")
+//!     .open(get_temp_filepath())
 //!     .unwrap();
 //!
 //! let print_redirect = Redirect::stdout(log).unwrap();
@@ -102,7 +117,7 @@
 //! println!("second");
 //! drop(hold); // printing happens here!
 //! ```
-extern crate libc;
+extern crate filedescriptor;
 extern crate tempfile;
 
 mod buffer;
