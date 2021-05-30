@@ -23,9 +23,10 @@ impl<F> From<RedirectError<F>> for io::Error {
 
 impl<F: Any> ::std::error::Error for RedirectError<F> {
     fn description(&self) -> &str {
+        #[allow(deprecated)] // for backwards compat.
         self.error.description()
     }
-    fn cause(&self) -> Option<&::std::error::Error> {
+    fn source(&self) -> Option<&(dyn std::error::Error+'static)> {
         Some(&self.error)
     }
 }

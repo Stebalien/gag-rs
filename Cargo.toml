@@ -1,5 +1,4 @@
 [package]
-
 name = "gag"
 version = "1.0.0"
 authors = ["Steven Allen <steven@stebalien.com>"]
@@ -8,6 +7,7 @@ description = "Gag, redirect, or hold stdout/stderr output. Currently only *nix 
 documentation = "https://docs.rs/gag/"
 repository = "https://github.com/Stebalien/gag-rs"
 keywords = ["stdout", "stderr", "stdio", "redirect"]
+edition = "2018"
 license = "MIT"
 
 [dependencies]

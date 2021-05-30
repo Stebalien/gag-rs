@@ -1,4 +1,4 @@
-use redirect::Redirect;
+use crate::redirect::Redirect;
 use std::fs::File;
 use std::fs::OpenOptions;
 use std::io;

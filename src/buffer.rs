@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::{self, Read};
 
-use redirect::Redirect;
+use crate::redirect::Redirect;
 use tempfile::NamedTempFile;
 
 /// Buffer output in an in-memory buffer.

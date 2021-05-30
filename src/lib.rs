@@ -125,7 +125,7 @@ mod gag;
 mod hold;
 mod redirect;
 
-pub use buffer::{Buffer, BufferRedirect};
-pub use gag::Gag;
-pub use hold::Hold;
-pub use redirect::{Redirect, RedirectError};
+pub use crate::buffer::{Buffer, BufferRedirect};
+pub use crate::gag::Gag;
+pub use crate::hold::Hold;
+pub use crate::redirect::{Redirect, RedirectError};

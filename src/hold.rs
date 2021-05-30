@@ -1,5 +1,5 @@
 use std::io::{self, Read, Write};
-use BufferRedirect;
+use crate::BufferRedirect;
 
 /// Hold output until dropped. On drop, the held output is sent to the stdout/stderr.
 ///
